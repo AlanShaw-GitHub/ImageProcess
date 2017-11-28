@@ -267,5 +267,7 @@ OpenCV是开源的应用程序，项目托管在GitHub上面：https://github.co
 
 我们为了更好的实现版本的管理与交流，更好的协调前后端的进度，使用了git进行保证质量，并将代码托管在github平台上，在修改中期报告的时候，我们的组员分工进行撰写，以下是github的commit记录：
 
+![github截图](github截图.png)
+
 
 
