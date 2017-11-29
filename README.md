@@ -158,7 +158,7 @@ OpenCV是开源的应用程序，项目托管在GitHub上面：https://github.co
   程序作为一个完整的客户端程序，在功能实现方面应在考虑效率的同时兼顾安全性。虽然opencv处理图像是一个较为完善的库函数，我们仍需防止用户通过输入恶意构造的图片进行内核提权，远程恶意代码执行等操作，为实现此目标，后端程序员在代码实现时，应注意：
 
   * 谨慎使用可能产生溢出的函数，类似`gets`，`scanf`等，而使用更安全的`fgets`等
-  * 谨慎使用`malloc`、`free`等函数，在防止内存泄露的同时也能防止`use after free`等常见针对堆内存的攻击	
+    * 谨慎使用`malloc`、`free`等函数，在防止内存泄露的同时也能防止`use after free`等常见针对堆内存的攻击
   * 在编译的时候开启`alsr`，`pie`，`nx`等保护措施
 
 
@@ -182,21 +182,21 @@ OpenCV是开源的应用程序，项目托管在GitHub上面：https://github.co
 
 ### 图片处理流程
 
-```
-+-------+      +------------+      +----------------------+      +----------------------------------+
-| Start | ---> | Load Image | ---> | Get user reqiurement | ---> | Call the corresponding function  |
-+-------+      +------------+      +----------------------+      |       to process the image       |
-                                               ↑                 +----------------------------------+
-                                               |                                        |
-                                               | No                                     |
-                                               |                                        |
-                                               |                                        ↓
-  +-----+      +------------+       Yes     +-------+                       +--------------------+
-  | End | <--- | Save image | <------------ | Exit? | <----------- -------- | Show the new image |
-  +-----+      +------------+               +-------+                       +--------------------+
+```flow
+st=>start: Start
+e=>end
+i1=>inputoutput: Load image
+i2=>inputoutput: Get user reqiurement
+op1=>operation: Call the corresponding function to process the image 
+op2=>operation: Show image
+cond1=>condition: Exit?
+o1=>inputoutput: Save image
 
-                                   
+st->i1->i2->op1->op2->cond1
+cond1(no)->i2
+cond1(yes)->o1->e
 ```
+
 
 ### 前端编写
 
