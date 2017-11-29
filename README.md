@@ -13,6 +13,92 @@
 > - [浅谈Qt5中的事件处理机制](http://www.alanshaw.cn/articles/qt-event.html)
 > - [opencv3.3+qt5.9.3配置](http://www.alanshaw.cn/articles/opencv-demo.html)
 
+###  opencv3.3+qt5.9.3配置
+
+> **配置环境**
+>
+> CPU：AMD Ryzen 1700x
+>
+> 编译器：vs2017 msvc2017
+
+#### opencv3.3安装
+
+在[官网](https://opencv.org/releases.html)下载opencv3.3.1，选择win pack下载。
+
+下载后，解压安装，路径中不要有中文。
+
+<img src="1.jpg" width="500px" />
+
+安装opencv3有两种方法，一种是下载源码安装，即上图的sources，下载后，使用cmake编译后，生成的sln解决方案用vs打开，编译即可（大概需要五分钟），编译过程中，可以自定义选择是否加入Qt和tbb、openmp等支持，如果是下载win pack解压安装的，这些宏默认是未定义的（就是没开启这些功能）。
+
+我们现在使用win pack直接下载编译好的代码来安装。解压后，将`D:\opencv\build\x64\vc14\bin`和`D:\opencv\build\include`两项添加进环境变量。**注意我这里是在D盘安装的**你要自己改成你安装时候的路径。
+
+然后，新建一个vs工程，打开属性管理器，选择你的解决方案，右键->属性->VC++目录。选择包含目录->编辑，添加如图的三项进去。
+
+<img src="2.jpg" width="300px" />
+
+然后点击确定，按同样方法添加库目录（在包含目录的下面）。
+
+<img src="3.jpg" width="300px" />
+
+然后，确定退出，点击链接器->输入->附加依赖项，添加以下内容。
+
+<img src="4.jpg" width="300px" />
+
+**注意这里的先后次序，带d的是debug模式下的lib，如果选择的是在release下编译，就把不带d的那一行放在前面。**
+
+<img src="5.jpg" width="300px" />
+
+这样就配置好了，注意退出的时候保存一下。
+
+测试运行是否成功的简短代码：
+
+```c++
+#include <iostream>
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main() {
+	cout << Mat::zeros(Size(5, 5), CV_8UC1);
+}
+```
+
+如果`ctrl+B`运行成功,就说明配置好了。
+
+#### Qt5.9.2安装
+
+[官网](http://download.qt.io/archive/qt/5.9/5.9.2/)下载qt5.9.2
+
+ <img src="6.jpg" width="600px" />
+
+选择`qt-opensource-windows-x86-5.9.2.exe`下载（windows系统）。一路安装，一般不会有什么问题。**注意选择编译器的时候选择msvc2017。**
+
+安装成功后，添加环境变量`D:\QT\5.9.2\msvc2017_64\bin` 。然后，打开qt creator，随便新建一个程序，比如Qt widgets application。然后，在.pro文件中，加入如下代码段：
+
+```
+INCLUDEPATH += D:\opencv\build\include \
+                D:\opencv\build\include\opencv \
+                D:\opencv\build\include\opencv2
+
+LIBS += D:\opencv\build\x64\vc14\lib\opencv_world330.lib
+```
+
+应该就可以了。可以用之前的测试代码再试一下。
+
+**有个要注意的地方是，qt creator编译一遍生成新的一个文件夹（如`build-opencv-Desktop_Qt_5_9_2_MSVC2017_64bit-Release`），如果opencv有导入照片之类的东西，要把资源文件放在生成的那个文件夹里面，不能放在.pro在的文件夹里面，不然找不到。**当然使用qt原生函数的时候可以用.qrc（xml写成的小数据库）资源管理器导入需要的文件，在编译时这些资源文件会被自动转换成二进制编码。
+
+如果想使用vs编译qt和opencv，那就在第一步配置好opencv的基础上，点击工具->扩展和更新->联机，搜索qt，下载第一个，如图：
+
+<img src="7.jpg" width="400px" />
+
+下载完成后，重启安装，然后选择状态栏上面的qt vs tools->qt options，点击add，添加你的qt位置如`D:\QT\5.9.2\msvc2017_64`，以便vs编译。如图：
+
+
+
+<img src="8.jpg" width="400px" />
+
 ### IDE介绍
 
 ####    QT Creator 4.4.1(Community)
