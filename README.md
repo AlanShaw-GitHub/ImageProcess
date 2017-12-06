@@ -27,7 +27,7 @@
 
 下载后，解压安装，路径中不要有中文。
 
-<img src="1.jpg" width="500px" />
+<img src="./img/1.jpg" width="500px" />
 
 安装opencv3有两种方法，一种是下载源码安装，即上图的sources，下载后，使用cmake编译后，生成的sln解决方案用vs打开，编译即可（大概需要五分钟），编译过程中，可以自定义选择是否加入Qt和tbb、openmp等支持，如果是下载win pack解压安装的，这些宏默认是未定义的（就是没开启这些功能）。
 
@@ -35,19 +35,19 @@
 
 然后，新建一个vs工程，打开属性管理器，选择你的解决方案，右键->属性->VC++目录。选择包含目录->编辑，添加如图的三项进去。
 
-<img src="2.jpg" width="300px" />
+<img src="./img/2.jpg" width="300px" />
 
 然后点击确定，按同样方法添加库目录（在包含目录的下面）。
 
-<img src="3.jpg" width="300px" />
+<img src="./img/3.jpg" width="300px" />
 
 然后，确定退出，点击链接器->输入->附加依赖项，添加以下内容。
 
-<img src="4.jpg" width="300px" />
+<img src="./img/4.jpg" width="300px" />
 
 **注意这里的先后次序，带d的是debug模式下的lib，如果选择的是在release下编译，就把不带d的那一行放在前面。**
 
-<img src="5.jpg" width="300px" />
+<img src="./img/5.jpg" width="300px" />
 
 这样就配置好了，注意退出的时候保存一下。
 
@@ -71,7 +71,7 @@ int main() {
 
 [官网](http://download.qt.io/archive/qt/5.9/5.9.2/)下载qt5.9.2
 
- <img src="6.jpg" width="600px" />
+ <img src="./img/6.jpg" width="600px" />
 
 选择`qt-opensource-windows-x86-5.9.2.exe`下载（windows系统）。一路安装，一般不会有什么问题。**注意选择编译器的时候选择msvc2017。**
 
@@ -91,13 +91,13 @@ LIBS += D:\opencv\build\x64\vc14\lib\opencv_world330.lib
 
 如果想使用vs编译qt和opencv，那就在第一步配置好opencv的基础上，点击工具->扩展和更新->联机，搜索qt，下载第一个，如图：
 
-<img src="7.jpg" width="400px" />
+<img src="./img/7.jpg" width="400px" />
 
 下载完成后，重启安装，然后选择状态栏上面的qt vs tools->qt options，点击add，添加你的qt位置如`D:\QT\5.9.2\msvc2017_64`，以便vs编译。如图：
 
 
 
-<img src="8.jpg" width="400px" />
+<img src="./img/8.jpg" width="400px" />
 
 ### IDE介绍
 
@@ -162,7 +162,7 @@ Qt的开发始于1990年，由挪威程序员Eirik Chambe-Eng和Haavard Nord开�
 
 ####    OpenCV 3.3.1
 
-<img src="opencv.jpg" width="200px" />
+<img src="./img/opencv.jpg" width="200px" />
 
 OpenCV（开源计算机视觉库）是在BSD许可下发布的，因此它在学术和商业上都是免费的。它具有C ++，C，Python和Java接口，支持Windows，Linux，Mac OS，iOS和Android。OpenCV的设计是为了提高计算效率，并将重点放在实时应用程序上。用优化的C / C ++编写，库还可以利用多核处理。通过使用OpenCL，可以利用底层异构计算平台的硬件加速。**（同时，我们这次的应用程序将支持OpenML、intel TBB多核加速）**
 

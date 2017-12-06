@@ -1,0 +1,15 @@
+*.pdf
+*.exe
+*.o
+*.pyc
+*.memo
+*.jpg
+*.rtf
+*.docx
+*.doc
+*.out
+*.plist
+/cmake-build-debug/
+!/cmake-build-debug/temp
+/.idea
+.DS_Store
