@@ -2,7 +2,7 @@
 
 int main(){
 
-    IPProtate(1,30);
+    IPPresize(1,0.1,0.1);
 
     return 0;
 }
