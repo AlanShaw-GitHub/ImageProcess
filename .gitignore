@@ -3,7 +3,6 @@
 *.o
 *.pyc
 *.memo
-*.jpg
 *.rtf
 *.docx
 *.doc
