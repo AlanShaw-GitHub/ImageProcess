@@ -2,7 +2,7 @@
 
 int main(){
 
-    IPPresize(1,0.1,0.1);
+    IPPsobel(1);
 
     return 0;
 }
