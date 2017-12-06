@@ -2,7 +2,7 @@
 
 int main(){
 
-    IPPsobel(1);
+    IPP_sobel(1);
 
     return 0;
 }

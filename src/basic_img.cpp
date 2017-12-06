@@ -4,9 +4,9 @@
 
 #include <basic_img.h>
 
-bool IPPresize(version v,double fx, double fy){
-    string input_path = "./temp/" + to_string(v) + ".jpg";
-    string output_path = "./temp/" + to_string(v+1) + ".jpg";
+bool IPP_resize(version v,double fx, double fy){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;
@@ -21,9 +21,9 @@ bool IPPresize(version v,double fx, double fy){
     return true;
 }
 
-bool IPProtate(version v,double degree){
-    string input_path = "./temp/" + to_string(v) + ".jpg";
-    string output_path = "./temp/" + to_string(v+1) + ".jpg";
+bool IPP_rotate(version v,double degree){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;
@@ -38,23 +38,24 @@ bool IPProtate(version v,double degree){
     return true;
 }
 
-bool IPPblur(version v,int ksize){
-    string input_path = "./temp/" + to_string(v) + ".jpg";
-    string output_path = "./temp/" + to_string(v+1) + ".jpg";
+bool IPP_blur(version v,int ksize){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;
     Mat output_img;
-
+    if(ksize % 2 == 0)
+        ksize++;
     medianBlur(input_img,output_img,ksize);
 
     imwrite(output_path,output_img);
     return true;
 }
 
-bool IPPsobel(version v){
-    string input_path = "./temp/" + to_string(v) + ".jpg";
-    string output_path = "./temp/" + to_string(v+1) + ".jpg";
+bool IPP_sobel(version v){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;
@@ -79,8 +80,8 @@ bool IPPsobel(version v){
 }
 
 
-bool IPPhist(version v){
-    string input_path = "./temp/" + to_string(v) + ".jpg";
+bool IPP_hist(version v){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
     string output_path = "./temp/hist.jpg";
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
@@ -144,9 +145,41 @@ bool IPPhist(version v){
     return true;
 }
 
-/*
-string input_path = "./temp/" + to_string(v) + ".jpg";
-string output_path = "./temp/" + to_string(v+1) + ".jpg";
+bool IPP_split(version v,channel c){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
+    Mat input_img = imread(input_path);
+    if(input_img.empty() == true)
+        return false;
+
+    if(c != RED && c != GREEN && c != BLUE)
+        return false;
+    Mat output_img;
+    vector<Mat> output_img_array;
+
+    split(input_img,output_img_array);
+    if(c == RED){
+        output_img_array[0] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
+        output_img_array[1] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
+    }
+    else if(c == GREEN){
+        output_img_array[0] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
+        output_img_array[2] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
+    }
+    else if(c == BLUE){
+        output_img_array[1] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
+        output_img_array[2] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
+    }
+    merge(output_img_array,output_img);
+    imwrite(output_path,output_img);
+    return true;
+}
+
+
+/*------------templates--------
+
+string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
 Mat input_img = imread(input_path);
 if(input_img.empty() == true)
 return false;

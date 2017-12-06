@@ -11,7 +11,12 @@
 using namespace std;
 using  namespace cv;
 
+#define  DEFAULT_PATH "./temp/"
 typedef int version;
-
+enum channel{
+    RED,
+    GREEN,
+    BLUE
+};
 
 #endif //IPP_IPP_USAGE_H
