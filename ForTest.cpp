@@ -2,7 +2,7 @@
 
 int main(){
     version v = 1;
-    IPP_img_face_detection(v);
+    IPP_addweight(3,4,0.5,0.5);
 
     return 0;
 }

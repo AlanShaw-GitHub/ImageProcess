@@ -61,6 +61,22 @@ bool IPP_img_face_detection(version v){
     return true;
 }
 
+bool IPP_addweight(version v1,version v2,double weightv1,double weightv2){
+    string input_path1 = DEFAULT_PATH + to_string(v1) + ".jpg";
+    string input_path2 = DEFAULT_PATH + to_string(v2) + ".jpg";
+    string output_path = DEFAULT_PATH + string("addweight_") + to_string(v1) +
+                         string("_") + to_string(v2) + ".jpg";
+    Mat input_img1 = imread(input_path1);
+    Mat input_img2 = imread(input_path2);
+    if(input_img1.empty() || input_img2.empty())
+        return false;
+    Mat output_img;
+    resize(input_img2,input_img2,Size(input_img1.cols,input_img1.rows));
+    addWeighted(input_img1,weightv1,input_img2,weightv2,0.0,output_img);
+
+    imwrite(output_path,output_img);
+    return true;
+}
 
 
 /*------------templates--------
