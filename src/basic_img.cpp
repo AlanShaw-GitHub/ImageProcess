@@ -38,6 +38,74 @@ bool IPP_rotate(version v,double degree){
     return true;
 }
 
+bool IPP_cut(version v,int x,int y,int sizex,int sizey){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + string("ROI_") + to_string(v+1) + ".jpg";
+    Mat input_img = imread(input_path);
+    if(input_img.empty() == true)
+        return false;
+    Mat output_img;
+
+    output_img = input_img(Rect(x,y,sizex,sizey));
+
+    imwrite(output_path,output_img);
+    return true;
+}
+
+bool IPP_csv(version v,IPP_CHANNEL c){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
+    Mat input_img = imread(input_path);
+    if(input_img.empty() == true)
+        return false;
+
+    ofstream file;
+    vector<Mat> input_img_array;
+    split(input_img,input_img_array);
+    if(c == RED) {
+        file.open("./temp/MAT_R.csv");
+        file << input_img_array[2];
+    }
+    if(c == GREEN) {
+        file.open("./temp/MAT_G.csv");
+        file << input_img_array[1];
+    }
+    if(c == BLUE) {
+        file.open("./temp/MAT_B.csv");
+        file << input_img_array[0];
+    }
+
+    return true;
+}
+
+bool IPP_draw(version v,IPP_DRAW){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
+    Mat input_img = imread(input_path);
+    if(input_img.empty() == true)
+        return false;
+    Mat output_img;
+
+
+
+    imwrite(output_path,output_img);
+    return true;
+}
+
+bool IPP_gray(version v){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
+    Mat input_img = imread(input_path);
+    if(input_img.empty() == true)
+        return false;
+    Mat output_img;
+
+    cvtColor(input_img,output_img,CV_RGB2GRAY);
+
+    imwrite(output_path,output_img);
+    return true;
+}
+
 bool IPP_blur(version v,int ksize){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
     string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
@@ -145,9 +213,9 @@ bool IPP_hist(version v){
     return true;
 }
 
-bool IPP_split(version v,channel c){
+bool IPP_split(version v,IPP_CHANNEL c){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
-    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
+    string output_path;
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;
@@ -161,16 +229,52 @@ bool IPP_split(version v,channel c){
     if(c == RED){
         output_img_array[0] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
         output_img_array[1] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
+        output_path = DEFAULT_PATH + string("RED_") + to_string(v+1) + ".jpg";
     }
     else if(c == GREEN){
         output_img_array[0] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
         output_img_array[2] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
+        output_path = DEFAULT_PATH + string("GREEN_") + to_string(v+1) + ".jpg";
     }
     else if(c == BLUE){
         output_img_array[1] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
         output_img_array[2] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
+        output_path = DEFAULT_PATH + string("BLUE_") + to_string(v+1) + ".jpg";
     }
     merge(output_img_array,output_img);
+    imwrite(output_path,output_img);
+    return true;
+}
+
+bool IPP_threshold(version v,double thresh,IPP_THRESHOLD type){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
+    Mat input_img = imread(input_path);
+    if(input_img.empty() == true)
+        return false;
+    Mat output_img;
+
+    threshold(input_img,output_img,thresh,255,type);
+
+    imwrite(output_path,output_img);
+    return true;
+}
+
+bool IPP_floodfill(version v,int x,int y,int range){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
+    Mat input_img = imread(input_path);
+    if(input_img.empty() == true)
+        return false;
+    Mat output_img;
+
+    int b = input_img.at<Vec3b>(x,y)[0];
+    int g = input_img.at<Vec3b>(x,y)[1];
+    int r = input_img.at<Vec3b>(x,y)[2];
+    floodFill(input_img,Point(x,y),Scalar(b,g,r),0,Scalar(range,range,range),Scalar(range,range,range));
+    output_img = input_img;
+    line(output_img,Point(x,y),Point(x+1,y+1),Scalar(0,255,0),5);
+
     imwrite(output_path,output_img);
     return true;
 }

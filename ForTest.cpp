@@ -1,8 +1,8 @@
 #include "include/IPP_World.h"
 
 int main(){
-
-    IPP_sobel(1);
+    version v = 1;
+    IPP_csv(v,RED);
 
     return 0;
 }
