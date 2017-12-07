@@ -103,7 +103,7 @@ LIBS += D:\opencv\build\x64\vc14\lib\opencv_world330.lib
 
 ####    QT Creator 4.4.1(Community)
 
-![qt](qt.jpg)
+![qt](./img/qt.jpg)
 
 **Qt Creator** 是一款跨平台的集成开发环境，特别针对Qt开发者，是QtSDK组成的一部分，可运行于Windows, Linux/X11及Mac OS X等桌面操作系统，允许开发者为多桌面环境及移动设备平台创建应用程序。它包括一个可视化调试工具和集成的 GUI 版面和外形设计师。这个编辑器的功能包括语法高亮度显示和自动完成。在 Windows，默认安装它可以使用 MinGW 或 MSVC。从源代码编译时，也可以使用 cdb。
 
@@ -129,7 +129,7 @@ Qt Creator 提供两个集成的可视化编辑器，**Qt Designer** 与 **Qt Qu
 
 ####    Microsoft Visual Studio 2017
 
-![vs2017](vs2017.jpg)
+![vs2017](./img/vs2017.jpg)
 
 **Microsoft Visual Studio**（简称**VS**）是微软公司的开发工具包系列产品。VS是一个基本完整的开发工具集，它包括了整个软件生命周期中所需要的大部分工具，如UML工具、代码管控工具等等。
 
@@ -353,7 +353,7 @@ cond1(yes)->o1->e
 
 我们为了更好的实现版本的管理与交流，协调前后端的进度，使用了git进行保证质量，并将代码托管在github平台上，我们的组员分工撰写了中期报告，以下是我们github的commit记录：
 
-![github截图](github截图.png)
+![github截图](./img/github截图.png)
 
 
 
