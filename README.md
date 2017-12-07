@@ -353,7 +353,7 @@ cond1(yes)->o1->e
 
 我们为了更好的实现版本的管理与交流，协调前后端的进度，使用了git进行保证质量，并将代码托管在github平台上，我们的组员分工撰写了中期报告，以下是我们github的commit记录：
 
-![github截图](github截图.png)
+![github截图](./img/github截图.png)
 
 
 
