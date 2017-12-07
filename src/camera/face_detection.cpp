@@ -2,31 +2,60 @@
 // Created by 肖振新 on 2017/12/7.
 //
 
-#include <advance_img.h>
+#include <camera/face_detection.h>
 
-bool IPP_img_face_detection(version v){
-    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
-    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
-    Mat input_img = imread(input_path);
-    if(input_img.empty() == true)
-        return false;
-    Mat output_img;
+/** Function Headers */
+void detectAndDisplay( Mat frame );
 
-    String face_cascade_name, eyes_cascade_name;
-    CascadeClassifier face_cascade;
-    CascadeClassifier eyes_cascade;
-    String window_name = "Capture - Face detection";
+/** Global variables */
+String face_cascade_name, eyes_cascade_name;
+CascadeClassifier face_cascade;
+CascadeClassifier eyes_cascade;
+String window_name = "Capture - Face detection";
+
+/** @function main */
+bool IPP_face_detection()
+{
+
     face_cascade_name = "./data/haarcascade_frontalface_alt.xml";
     eyes_cascade_name = "./data/haarcascade_eye_tree_eyeglasses.xml";
-    Mat frame = input_img;;
+    VideoCapture capture;
+    Mat frame;
 
+    //-- 1. Load the cascades
     if( !face_cascade.load( face_cascade_name ) )
         return false;
     if( !eyes_cascade.load( eyes_cascade_name ) )
         return false;
 
+
+    //-- 2. Read the video stream
+    capture.open( 0 );
+    if ( ! capture.isOpened() )
+        return false;
+
+
+    while ( capture.read(frame) )
+    {
+        if( frame.empty() )
+            break;
+
+
+        //-- 3. Apply the classifier to the frame
+        detectAndDisplay( frame );
+
+        char c = (char)waitKey(10);
+        if( c == 27 ) { break; } // escape
+    }
+    return true;
+}
+
+/** @function detectAndDisplay */
+void detectAndDisplay( Mat frame )
+{
     std::vector<Rect> faces;
     Mat frame_gray;
+
     cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
     equalizeHist( frame_gray, frame_gray );
 
@@ -51,28 +80,6 @@ bool IPP_img_face_detection(version v){
             circle( frame, eye_center, radius, Scalar( 255, 0, 0 ), 4, 8, 0 );
         }
     }
-
-    output_img = frame;
-
-    imwrite(output_path,output_img);
-    return true;
+    //-- Show what you got
+    imshow( window_name, frame );
 }
-
-/*------------templates--------
-
-string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
-string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
-Mat input_img = imread(input_path);
-if(input_img.empty() == true)
-return false;
-Mat output_img;
-
-
-
-imwrite(output_path,output_img);
-return true;
-*/
-
-
-
-

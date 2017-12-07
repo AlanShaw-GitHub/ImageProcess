@@ -10,5 +10,6 @@
 *.plist
 /cmake-build-debug/*
 !/cmake-build-debug/temp
+!/cmake-build-debug/data
 /.idea
 .DS_Store

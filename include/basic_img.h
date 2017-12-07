@@ -4,7 +4,7 @@
 
 #ifndef IPP_ZOOM_H
 #define IPP_ZOOM_H
-#include <IPP_USAGE.h>
+#include <IPP_Core.h>
 
 bool IPP_resize(version v,double fx, double fy);
 //resize photo,zoom in or zoom out(inreversible)
