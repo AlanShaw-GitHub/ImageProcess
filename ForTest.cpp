@@ -2,7 +2,7 @@
 
 int main(){
     version v = 1;
-    IPP_addweight(3,4,0.5,0.5);
+    IPP_fisheye(3,500);
 
     return 0;
 }
