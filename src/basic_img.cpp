@@ -280,6 +280,47 @@ bool IPP_floodfill(version v,int x,int y,int range){
 }
 
 
+
+
+bool IPP_brightness(version v, int brightness)
+{
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v + 1) + ".jpg";
+
+    Mat img = imread(input_path);
+    if (img.empty())
+        return false;
+    
+    Vec3b delta_brightness(brightness, brightness, brightness);
+
+    for (int i = 0; i < img.rows; ++i)
+        for (int j = 0; j < img.cols; ++j)
+            img.at<Vec3b>(i, j) += delta_brightness;
+
+    imwrite(output_path, img);
+
+    return true;
+}
+
+bool IPP_contrast(version v, double contrast_rate)
+{
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v + 1) + ".jpg";
+
+    Mat img = imread(input_path);
+    if (img.empty())
+        return false;
+
+    for (int i = 0; i < img.rows; ++i)
+        for (int j = 0; j < img.cols; ++j)
+            img.at<Vec3b>(i, j) *= contrast_rate;
+
+    imwrite(output_path, img);
+
+    return true;
+}
+
+
 /*------------templates--------
 
 string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
