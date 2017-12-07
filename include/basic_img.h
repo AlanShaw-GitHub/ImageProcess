@@ -8,6 +8,7 @@
 
 bool IPP_resize(version v,double fx, double fy);
 //resize photo,zoom in or zoom out(inreversible)
+//即为图像压缩与复原
 
 bool IPP_rotate(version v,double degree);
 //rotate photo
@@ -26,10 +27,10 @@ bool IPP_gray(version v);
 //转为灰度图
 
 bool IPP_blur(version v,int ksize);
-//图像模糊
+//图像模糊(中值滤波）
 
 bool IPP_sobel(version v);
-//图像锐化
+//图像锐化 兼 边缘检测
 
 bool IPP_hist(version v);
 //显示直方图，直方图图片存在/temp/hist.jpg
@@ -51,11 +52,12 @@ bool IPP_threshold(version v,double thresh,IPP_THRESHOLD type);
 bool IPP_floodfill(version v,int x,int y,int range);
 //漫水填充算法，种子点为（x，y），变为的颜色为该点的颜色,range为-range<(x,y)点的RGB值<range
 
-// 改变图片的亮度，brightness表示增加的亮度(可正可负)
-bool IPP_brightness(version v, uchar brightness);
-// 改变图片的对比度，contrast_rate表示对比度的相对比率值(>0)
-bool IPP_contrast(version v, double contrast_rate);
 
+bool IPP_brightness(version v, uchar brightness);
+// 改变图片的亮度，brightness表示增加的亮度(可正可负)
+
+bool IPP_contrast(version v, double contrast_rate);
+// 改变图片的对比度，contrast_rate表示对比度的相对比率值(>0)
 
 
 #endif //IPP_ZOOM_H

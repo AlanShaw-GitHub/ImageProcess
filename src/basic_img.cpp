@@ -282,7 +282,7 @@ bool IPP_floodfill(version v,int x,int y,int range){
 
 
 
-bool IPP_brightness(version v, int brightness)
+bool IPP_brightness(version v, uchar brightness)
 {
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
     string output_path = DEFAULT_PATH + to_string(v + 1) + ".jpg";
@@ -294,8 +294,9 @@ bool IPP_brightness(version v, int brightness)
     Vec3b delta_brightness(brightness, brightness, brightness);
 
     for (int i = 0; i < img.rows; ++i)
-        for (int j = 0; j < img.cols; ++j)
+        for (int j = 0; j < img.cols; ++j) {
             img.at<Vec3b>(i, j) += delta_brightness;
+        }
 
     imwrite(output_path, img);
 

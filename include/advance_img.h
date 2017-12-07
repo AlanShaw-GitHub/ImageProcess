@@ -8,5 +8,6 @@
 #include <IPP_Core.h>
 
 bool IPP_img_face_detection(version v);
+//人脸和人眼检测
 
 #endif //IPP_ADVANCE_IMG_H
