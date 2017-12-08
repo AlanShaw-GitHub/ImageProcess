@@ -5,4 +5,6 @@
 #ifndef IPP_VIDEO_H
 #define IPP_VIDEO_H
 
+#include <video/fisheye.h>
+
 #endif //IPP_VIDEO_H
