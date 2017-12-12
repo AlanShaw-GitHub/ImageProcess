@@ -30,10 +30,17 @@ bool IPP_rotate(version v,double degree){
     Mat output_img;
 
     int maxlength = max(input_img.cols, input_img.rows);
-    Point2f pt(maxlength/2.,maxlength/2.);
+    Point2f pt(input_img.cols/2.,input_img.rows/2.);
     Mat r = getRotationMatrix2D(pt,degree,1.0);
-    warpAffine(input_img,output_img,r,Size(maxlength,maxlength));
-
+    warpAffine(input_img,output_img,r,Size(input_img.cols, input_img.rows));
+    if(input_img.cols > input_img.rows) {
+        output_img = output_img.colRange(input_img.cols/2-0.35*input_img.rows,input_img.cols/2+0.35*input_img.rows);
+        output_img = output_img.rowRange(input_img.rows*0.147,input_img.rows*0.852);
+    }
+    else {
+        output_img = output_img.rowRange(input_img.rows/2-0.35*input_img.cols,input_img.rows/2+0.35*input_img.cols);
+        output_img = output_img.rowRange(input_img.cols*0.147,input_img.cols*0.852);
+    }
     imwrite(output_path,output_img);
     return true;
 }
@@ -215,7 +222,7 @@ bool IPP_hist(version v){
 
 bool IPP_split(version v,IPP_CHANNEL c){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
-    string output_path;
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;
@@ -229,17 +236,14 @@ bool IPP_split(version v,IPP_CHANNEL c){
     if(c == RED){
         output_img_array[0] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
         output_img_array[1] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
-        output_path = DEFAULT_PATH + string("RED_") + to_string(v+1) + ".jpg";
     }
     else if(c == GREEN){
         output_img_array[0] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
         output_img_array[2] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
-        output_path = DEFAULT_PATH + string("GREEN_") + to_string(v+1) + ".jpg";
     }
     else if(c == BLUE){
         output_img_array[1] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
         output_img_array[2] = Mat::zeros(input_img.rows,input_img.cols,CV_8UC1);
-        output_path = DEFAULT_PATH + string("BLUE_") + to_string(v+1) + ".jpg";
     }
     merge(output_img_array,output_img);
     imwrite(output_path,output_img);

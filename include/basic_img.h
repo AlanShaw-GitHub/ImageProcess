@@ -37,7 +37,6 @@ bool IPP_hist(version v);
 
 bool IPP_split(version v,IPP_CHANNEL c);
 //分离RGB值，可选参数为RED,GREEN,BLUE
-//图片存在RED_v.jpg,GREENv.jpg,BLUEv.jpg,v为输入版本号
 
 bool IPP_threshold(version v,double thresh,IPP_THRESHOLD type);
 //一些基本的阈值化操作，关于type参数具体见
