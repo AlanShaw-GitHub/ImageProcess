@@ -14,6 +14,10 @@ using  namespace cv;
 #define  DEFAULT_PATH "./temp/"
 #define PI 3.1415926
 typedef int version;
+enum IPP_TYPE{
+    COMPRESS,
+    REBUILD
+};
 enum IPP_CHANNEL{
     RED,
     GREEN,

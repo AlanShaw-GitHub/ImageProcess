@@ -5,8 +5,8 @@
 #ifndef IPP_ADVANCE_IMG_H
 #define IPP_ADVANCE_IMG_H
 
-#include <IPP_Core.h>
-#include <video/fisheye.h>
+#include "IPP_Core.h"
+#include "video/fisheye.h"
 
 bool IPP_img_face_detection(version v);
 //人脸和人眼检测

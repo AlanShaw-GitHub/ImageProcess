@@ -5,7 +5,7 @@
 #ifndef IPP_CAMSHIFT_H
 #define IPP_CAMSHIFT_H
 
-#include <IPP_Core.h>
+#include "IPP_Core.h"
 bool IPP_camshift();
 
 #endif //IPP_CAMSHIFT_H

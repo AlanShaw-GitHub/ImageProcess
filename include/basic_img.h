@@ -4,11 +4,11 @@
 
 #ifndef IPP_ZOOM_H
 #define IPP_ZOOM_H
-#include <IPP_Core.h>
+#include "IPP_Core.h"
 
-bool IPP_resize(version v,double fx, double fy);
+bool IPP_resize(version v,IPP_TYPE type,int percent);
 //resize photo,zoom in or zoom out(inreversible)
-//即为图像压缩与复原
+//即为图像压缩与复原,type为COMPRESS压缩，为REBUILD重建，percent 0～100
 
 bool IPP_rotate(version v,double degree);
 //rotate photo

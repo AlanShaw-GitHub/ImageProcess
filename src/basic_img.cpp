@@ -2,19 +2,19 @@
 // Created by 肖振新 on 2017/12/6.
 //
 
-#include <basic_img.h>
+#include "basic_img.h"
 
-bool IPP_resize(version v,double fx, double fy){
+bool IPP_resize(version v,IPP_TYPE type,int percent){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
     string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;
     Mat output_img;
-    if(fx < 1.0)
-        resize(input_img,output_img,Size(),fx,fy,CV_INTER_AREA);
-    else
-        resize(input_img,output_img,Size(),fx,fy,CV_INTER_LINEAR);
+    if(type == COMPRESS)
+        resize(input_img,output_img,Size(),1-0.009*percent,1-0.009*percent,CV_INTER_AREA);
+    else if(type == REBUILD)
+        resize(input_img,output_img,Size(),0.1*percent,0.1*percent,CV_INTER_LINEAR);
 
     imwrite(output_path,output_img);
 

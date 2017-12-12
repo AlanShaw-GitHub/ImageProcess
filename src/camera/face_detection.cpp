@@ -2,7 +2,7 @@
 // Created by 肖振新 on 2017/12/7.
 //
 
-#include <camera/face_detection.h>
+#include "camera/face_detection.h"
 
 /** Function Headers */
 void detectAndDisplay( Mat frame );

@@ -2,7 +2,7 @@
 
 int main(){
     version v = 1;
-    IPP_fisheye_video(v);
+    IPP_camshift();
 
     return 0;
 }

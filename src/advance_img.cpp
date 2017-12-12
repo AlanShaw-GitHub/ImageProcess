@@ -2,7 +2,7 @@
 // Created by 肖振新 on 2017/12/7.
 //
 
-#include <advance_img.h>
+#include "advance_img.h"
 
 bool IPP_img_face_detection(version v){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";

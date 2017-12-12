@@ -2,7 +2,7 @@
 // Created by 肖振新 on 2017/12/7.
 //
 
-#include <camera/camshift.h>
+#include "camera/camshift.h"
 
 /*
 This is a program that shows mean-shift based tracking
