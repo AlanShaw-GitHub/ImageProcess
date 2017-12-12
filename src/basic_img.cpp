@@ -39,7 +39,7 @@ bool IPP_rotate(version v,double degree){
     }
     else {
         output_img = output_img.rowRange(input_img.rows/2-0.35*input_img.cols,input_img.rows/2+0.35*input_img.cols);
-        output_img = output_img.rowRange(input_img.cols*0.147,input_img.cols*0.852);
+        output_img = output_img.colRange(input_img.cols*0.147,input_img.cols*0.852);
     }
     imwrite(output_path,output_img);
     return true;
