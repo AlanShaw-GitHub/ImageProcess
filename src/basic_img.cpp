@@ -187,27 +187,27 @@ bool IPP_hist(version v){
 
     //R
     calcHist(&input_img, 1, &channels[0], Mat(),
-                 red, dims, &histSize[0], &ranges[0]);
+                 blue, dims, &histSize[0], &ranges[0]);
     //G
     calcHist(&input_img, 1, &channels[1], Mat(),
                  green, dims, &histSize[1], &ranges[1]);
     //B
     calcHist(&input_img, 1, &channels[2], Mat(),
-                 blue, dims, &histSize[2], &ranges[2]);
+                 red, dims, &histSize[2], &ranges[2]);
 
     Mat output_red(histSize[0], histSize[0], CV_8UC3, Scalar(0, 0, 0));
     Mat output_green(histSize[0], histSize[0], CV_8UC3, Scalar(0, 0, 0));
     Mat output_blue(histSize[0], histSize[0], CV_8UC3, Scalar(0, 0, 0));
     double maxValue[3] = { 0, 0, 0 };
     double minValue[3] = { 0, 0, 0 };
-    minMaxLoc(red, &minValue[0], &maxValue[0]);
+    minMaxLoc(blue, &minValue[0], &maxValue[0]);
     minMaxLoc(green, &minValue[1], &maxValue[1]);
-    minMaxLoc(blue, &minValue[2], &maxValue[2]);
+    minMaxLoc(red, &minValue[2], &maxValue[2]);
 
     //纵坐标缩放比例
-    double rate_red = (histSize[0] / maxValue[0]);
+    double rate_blue = (histSize[0] / maxValue[0]);
     double rate_green = (histSize[0] / maxValue[1]);
-    double rate_blue = (histSize[0] / maxValue[2]);
+    double rate_red = (histSize[0] / maxValue[2]);
 
     for (int i = 0; i < histSize[0]; i++)
     {
@@ -222,10 +222,10 @@ bool IPP_hist(version v){
                  Point((i), histSize[0] - value_blue*rate_blue), Scalar(255, 0, 0));
     }
 
-    addWeighted(output_red, 0.6, output_green ,0.6, 0.0, output_red);
-    addWeighted(output_red, 1.2, output_blue ,0.6,0.0, output_img);
+    //addWeighted(output_red, 0.6, output_green ,0.6, 0.0, output_red);
+    //addWeighted(output_red, 1.2, output_blue ,0.6,0.0, output_img);
 
-    imwrite(output_path,output_img);
+    imwrite(output_path,output_blue);
     return true;
 }
 
