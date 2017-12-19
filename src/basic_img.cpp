@@ -294,8 +294,7 @@ bool IPP_floodfill(version v,int x,int y,int range){
 
 
 
-
-bool IPP_brightness(version v, uchar brightness)
+bool IPP_brightness(version v, int brightness)
 {
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
     string output_path = DEFAULT_PATH + to_string(v + 1) + ".jpg";
@@ -304,19 +303,22 @@ bool IPP_brightness(version v, uchar brightness)
     if (img.empty())
         return false;
     
-    Vec3b delta_brightness(brightness, brightness, brightness);
+    double rate = brightness / 100.0;
+
 
     for (int i = 0; i < img.rows; ++i)
-        for (int j = 0; j < img.cols; ++j) {
-            img.at<Vec3b>(i, j) += delta_brightness;
-        }
+        for (int j = 0; j < img.cols; ++j)
+            if (rate > 0)
+                img.at<Vec3b>(i, j) += img.at<Vec3b>(i, j) * rate;
+            else
+                img.at<Vec3b>(i, j) -= img.at<Vec3b>(i, j) * (-rate);
 
     imwrite(output_path, img);
 
     return true;
 }
 
-bool IPP_contrast(version v, double contrast_rate)
+bool IPP_contrast(version v, int contrastrate)
 {
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
     string output_path = DEFAULT_PATH + to_string(v + 1) + ".jpg";
@@ -325,15 +327,30 @@ bool IPP_contrast(version v, double contrast_rate)
     if (img.empty())
         return false;
 
+    int bgr[3] = { 0, 0, 0 };
     for (int i = 0; i < img.rows; ++i)
-        for (int j = 0; j < img.cols; ++j)
-            img.at<Vec3b>(i, j) *= contrast_rate;
+        for (int j = 0; j < img.cols; ++j) {
+            Vec3b pixel = img.at<Vec3b>(i, j);
+            bgr[0] += pixel[0];
+            bgr[1] += pixel[1];
+            bgr[2] += pixel[2];
+        }
+    bgr[0] = bgr[0] / (img.rows * img.cols);
+    bgr[1] = bgr[1] / (img.rows * img.cols);
+    bgr[2] = bgr[2] / (img.rows * img.cols);
+
+    double rate = contrastrate / 50.0;
+
+    for (int i = 0; i < img.rows; ++i)
+        for (int j = 0; j < img.cols; ++j) {
+            Vec3b mean(bgr[0], bgr[1], bgr[2]);
+            img.at<Vec3b>(i, j) = img.at<Vec3b>(i, j) * rate + (1 - rate) * mean;
+        }
 
     imwrite(output_path, img);
 
     return true;
 }
-
 
 /*------------templates--------
 

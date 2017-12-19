@@ -52,11 +52,11 @@ bool IPP_floodfill(version v,int x,int y,int range);
 //漫水填充算法，种子点为（x，y），变为的颜色为该点的颜色,range为-range<(x,y)点的RGB值<range
 
 
-bool IPP_brightness(version v, uchar brightness);
-// 改变图片的亮度，brightness表示增加的亮度(可正可负)
+bool IPP_brightness(version v, int brightness);
+// 改变图片的亮度，brightness表示增加的亮度(可正可负), 范围（-100 ~ 100）
 
-bool IPP_contrast(version v, double contrast_rate);
-// 改变图片的对比度，contrast_rate表示对比度的相对比率值(>0)
+bool IPP_contrast(version v, int contrast);
+// 改变图片的对比度，contrast-对比度 范围（0-100）
 
 
 #endif //IPP_ZOOM_H
