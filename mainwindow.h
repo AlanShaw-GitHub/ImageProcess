@@ -28,6 +28,8 @@ private slots:
 
     void on_RGB_R_clicked();
 
+    void undo();
+
     void on_rotate_picture_clicked();
 
     void on_sobel_picture_clicked();
@@ -51,6 +53,7 @@ private:
     Ui::MainWindow *ui;
     QAction *openAction;
     QAction *saveAction;
+    QAction *undoAction;
     QPushButton *resize_button;
     QString pic_path;
     void load_picture(int version);

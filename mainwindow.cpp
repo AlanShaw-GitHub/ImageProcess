@@ -30,11 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     openAction = new QAction(QIcon("img/file.png"), tr("&Open..."), this);
     openAction->setShortcuts(QKeySequence::Open);
-    openAction->setStatusTip(tr("Open an existing file"));
-    //connect(openAction, SIGNAL(QAction::triggered()), this, SLOT(MainWindow::open()));
-    //connect(this, SIGNAL(MainWindow::open()), openAction, SLOT(&QAction::triggered));
+    openAction->setStatusTip(tr("Open an existing picture"));
     connect(openAction, &QAction::triggered, this, &MainWindow::open_picture);
-    //QString file_name = emit MainWindow::open();
     QMenu *open = menuBar()->addMenu(tr("&File"));
     open->addAction(openAction);
     QToolBar *toolBar_open = addToolBar(tr("&File"));
@@ -42,14 +39,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     saveAction = new QAction(QIcon("img/save.png"), tr("&Save..."), this);
     saveAction->setShortcuts(QKeySequence::Save);
-    saveAction->setStatusTip(tr("Open an existing file"));
+    saveAction->setStatusTip(tr("Save the current picture"));
     connect(saveAction, &QAction::triggered, this, &MainWindow::save_picture);
     QMenu *save = menuBar()->addMenu((tr("&Save")));
     open->addAction(saveAction);
     QToolBar *toolBar_save = addToolBar(tr("&Save"));
     toolBar_save->addAction(saveAction);
 
-
+    undoAction = new QAction(QIcon("img/undo.png"), tr("&Undo..."), this);
+    undoAction->setShortcuts(QKeySequence::Save);
+    undoAction->setStatusTip(tr("Undo the last operation"));
+    connect(undoAction, &QAction::triggered, this, &MainWindow::undo);
+    QMenu *undo = menuBar()->addMenu((tr("&Command")));
+    undo->addAction(undoAction);
+    QToolBar *toolBar_undo = addToolBar(tr("&Undo"));
+    toolBar_undo->addAction(undoAction);
 
 
 }
@@ -57,6 +61,30 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::undo()
+{
+    if (!if_selected){
+        QMessageBox message(QMessageBox::NoIcon, "error", "Please select a picture first!", QMessageBox::Yes | QMessageBox::No, NULL);
+        if (message.exec() == QMessageBox::Yes){
+            MainWindow::open_picture();
+        }
+        return;
+    }
+    if (version == 0)
+    {
+        qDebug() << "45";
+        QMessageBox message(QMessageBox::NoIcon, "error", "It is the origin picture!", QMessageBox::Ok, NULL);
+        message.exec();
+        //QMessageBox message(QMessageBox::NoIcon, "error", "This is the original picture!", QMessageBox::Yes, NULL);
+        return;
+    }
+    version--;
+    qDebug() << version;
+    load_picture(version);
+    return;
+
 }
 
 void MainWindow::save_picture()

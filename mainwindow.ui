@@ -50,7 +50,7 @@
 </string>
     </property>
     <property name="text">
-     <string>Please select a picture first</string>
+     <string>Please first select a picture</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
