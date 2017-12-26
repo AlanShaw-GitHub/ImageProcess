@@ -54,6 +54,23 @@ bool IPP_rotate(version v,double degree){
     return true;
 }
 
+int IPP_rows(version v){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    Mat input_img = imread(input_path);
+    if(input_img.empty() == true)
+        return 0;
+
+    return input_img.rows;
+}
+int IPP_cols(version v){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    Mat input_img = imread(input_path);
+    if(input_img.empty() == true)
+        return 0;
+
+    return input_img.cols;
+}
+
 bool IPP_cut(version v,int x,int y,int sizex,int sizey){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
     string output_path = DEFAULT_PATH + string("ROI_") + to_string(v+1) + ".jpg";

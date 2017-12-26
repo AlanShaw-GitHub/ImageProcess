@@ -13,6 +13,10 @@ bool IPP_resize(version v,IPP_TYPE type,int percent);
 bool IPP_rotate(version v,double degree);
 //rotate photo
 
+int IPP_rows(version v);
+int IPP_cols(version v);
+//return cols and rows of the image
+
 bool IPP_cut(version v,int x,int y,int sizex,int sizey);
 //cut photo ,create new sub photo(vertical for x)
 //图像存在ROI_v.jpg,v为输入版本号
