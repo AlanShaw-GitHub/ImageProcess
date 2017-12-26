@@ -11,6 +11,8 @@
 #include <QDebug>
 #include <QString>
 #include <QPushButton>
+#include <QFile>  // QFile::remove, copy
+#include <QDir>   // QDir
 #include <string>
 #include <iostream>
 #include <stdio.h>
@@ -108,12 +110,16 @@ void MainWindow::save_picture()
 
     else
     {
-        QString command = "cp " + img + " " + filename;
-        char *ch;
-        QByteArray ba = command.toLatin1();
-        ch=ba.data();
-        qDebug() << ch;
-        system(ch);
+        // QString command = "cp " + img + " " + filename;
+        // char *ch;
+        // QByteArray ba = command.toLatin1();
+        // ch=ba.data();
+        // qDebug() << ch;
+        // system(ch);
+
+		QFile::copy(img, filename); // copy file
+		load_picture(version);
+
         QMessageBox::about(this,
                     tr("Saved"),
                     tr("Already saved!"));
@@ -128,24 +134,39 @@ void MainWindow::open_picture()
         if (message.exec() == QMessageBox::No)
             return;
     }
-    QString rm_command = "rm temp/*.jpg";
-    char *command;
-    QByteArray command2 = rm_command.toLatin1();
-    command = command2.data();
-    qDebug() << command;
-    system(command);
+    // QString rm_command = "rm temp/*.jpg";
+    // char *command;
+    // QByteArray command2 = rm_command.toLatin1();
+    // command = command2.data();
+    // qDebug() << command;
+    // system(command);
+
+	// delete all files in the default directory
+	QString path = DEFAULTPATH;
+	QDir dir(path);
+	dir.setNameFilters(QStringList() << "*.*");
+	dir.setFilter(QDir::Files);
+	foreach(QString dirFile, dir.entryList())
+	{
+		dir.remove(dirFile);
+	}
+
     QString name = QFileDialog::getOpenFileName(NULL, "Open a file", "/Users/zuhxs/Documents", tr("Images (*.png *.jpg)"));
     if (name == NULL)
         return;
     if_selected = 1;
     this->pic_path = name;
 
-    QString cp_command = "cp " + pic_path + " " + GetName();
-    char*  ch;
-    QByteArray ba = cp_command.toLatin1();
-    ch=ba.data();
-    qDebug() << ch;
-    system(ch);
+    // QString cp_command = "cp " + pic_path + " " + GetName();
+    // char*  ch;
+    // QByteArray ba = cp_command.toLatin1();
+    // ch=ba.data();
+    // qDebug() << ch;
+    // system(ch);
+
+	// copy picture
+	QFile::copy(pic_path, GetName());
+
     load_picture(version);
 }
 
