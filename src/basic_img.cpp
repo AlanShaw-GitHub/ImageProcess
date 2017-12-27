@@ -73,7 +73,7 @@ int IPP_cols(version v){
 
 bool IPP_cut(version v,int x,int y,int sizex,int sizey){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
-    string output_path = DEFAULT_PATH + string("ROI_") + to_string(v+1) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;
@@ -239,10 +239,10 @@ bool IPP_hist(version v){
                  Point((i), histSize[0] - value_blue*rate_blue), Scalar(255, 0, 0));
     }
 
-    //addWeighted(output_red, 0.6, output_green ,0.6, 0.0, output_red);
-    //addWeighted(output_red, 1.2, output_blue ,0.6,0.0, output_img);
+    addWeighted(output_red, 0.6, output_green ,0.6, 0.0, output_red);
+    addWeighted(output_red, 1.2, output_blue ,0.6,0.0, output_img);
 
-    imwrite(output_path,output_blue);
+    imwrite(output_path,output_img);
     return true;
 }
 
