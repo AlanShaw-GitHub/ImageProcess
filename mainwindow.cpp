@@ -11,8 +11,6 @@
 #include <QDebug>
 #include <QString>
 #include <QPushButton>
-#include <QFile>  // QFile::remove, copy
-#include <QDir>   // QDir
 #include <string>
 #include <iostream>
 #include <stdio.h>
@@ -58,7 +56,11 @@ MainWindow::MainWindow(QWidget *parent) :
     toolBar_undo->addAction(undoAction);
 
 
+
+
 }
+
+int MainWindow::version = 0;
 
 MainWindow::~MainWindow()
 {
@@ -76,7 +78,6 @@ void MainWindow::undo()
     }
     if (version == 0)
     {
-        qDebug() << "45";
         QMessageBox message(QMessageBox::NoIcon, "error", "It is the origin picture!", QMessageBox::Ok, NULL);
         message.exec();
         //QMessageBox message(QMessageBox::NoIcon, "error", "This is the original picture!", QMessageBox::Yes, NULL);
@@ -85,6 +86,9 @@ void MainWindow::undo()
     version--;
     qDebug() << version;
     load_picture(version);
+    history += QString(operate_count+0x30) + ". 撤销上次操作\n";
+    operate_count++;
+    ui->history->setText(history);
     return;
 
 }
@@ -101,7 +105,7 @@ void MainWindow::save_picture()
     QString img = GetName();
     QString filename = QFileDialog::getSaveFileName(this,
         tr("Save Image"),
-        "",
+        "/Users/zuhxs/Desktop/shuluo",
         tr("*.jpg;; *.png;; *.bmp")); //选择路径
     if(filename.isEmpty())
     {
@@ -110,19 +114,17 @@ void MainWindow::save_picture()
 
     else
     {
-        // QString command = "cp " + img + " " + filename;
-        // char *ch;
-        // QByteArray ba = command.toLatin1();
-        // ch=ba.data();
-        // qDebug() << ch;
-        // system(ch);
-
-		QFile::copy(img, filename); // copy file
-		load_picture(version);
-
+        QString command = "cp " + img + " " + filename;
+        char *ch;
+        QByteArray ba = command.toLatin1();
+        ch=ba.data();
+        qDebug() << ch;
+        system(ch);
         QMessageBox::about(this,
                     tr("Saved"),
                     tr("Already saved!"));
+        history += "保存图片到 " + filename + "\n";
+        ui->history->setText(history);
     }
 }
 
@@ -134,39 +136,29 @@ void MainWindow::open_picture()
         if (message.exec() == QMessageBox::No)
             return;
     }
-    // QString rm_command = "rm temp/*.jpg";
-    // char *command;
-    // QByteArray command2 = rm_command.toLatin1();
-    // command = command2.data();
-    // qDebug() << command;
-    // system(command);
-
-	// delete all files in the default directory
-	QString path = DEFAULTPATH;
-	QDir dir(path);
-	dir.setNameFilters(QStringList() << "*.*");
-	dir.setFilter(QDir::Files);
-	foreach(QString dirFile, dir.entryList())
-	{
-		dir.remove(dirFile);
-	}
-
-    QString name = QFileDialog::getOpenFileName(NULL, "Open a file", "/Users/zuhxs/Documents", tr("Images (*.png *.jpg)"));
+    history.clear();
+    operate_count = 1;
+    QString rm_command = "rm temp/*.jpg";
+    char *command;
+    QByteArray command2 = rm_command.toLatin1();
+    command = command2.data();
+    qDebug() << command;
+    system(command);
+    QString name = QFileDialog::getOpenFileName(NULL, "Open a file", "/Users/zuhxs/Desktop/pic", tr("Images (*.png *.jpg)"));
     if (name == NULL)
         return;
     if_selected = 1;
     this->pic_path = name;
+    history += QString(operate_count+0x30) + ". 打开 " + name + "\n";
+    operate_count++;
+    ui->history->setText(history);
 
-    // QString cp_command = "cp " + pic_path + " " + GetName();
-    // char*  ch;
-    // QByteArray ba = cp_command.toLatin1();
-    // ch=ba.data();
-    // qDebug() << ch;
-    // system(ch);
-
-	// copy picture
-	QFile::copy(pic_path, GetName());
-
+    QString cp_command = "cp " + pic_path + " " + GetName();
+    char*  ch;
+    QByteArray ba = cp_command.toLatin1();
+    ch=ba.data();
+    qDebug() << ch;
+    system(ch);
     load_picture(version);
 }
 
@@ -202,6 +194,9 @@ void MainWindow::on_resize_button_clicked()
         return;
     }
     IPP_resize(version, COMPRESS , ui->resize_coefficient->value());
+    history += QString(operate_count+0x30) + ". 以 " + ui->resize_coefficient->value() + "的倍率压缩" + "\n";
+    operate_count++;
+    ui->history->setText(history);
     version += 1;
     MainWindow::load_picture(version);
 }
@@ -216,6 +211,9 @@ void MainWindow::on_RGB_R_clicked()
         return;
     }
     IPP_split(version, RED);
+    history += QString(operate_count+0x30) + ". 获取图片的红色RGB通道\n";
+    operate_count++;
+    ui->history->setText(history);
     version += 1;
     MainWindow::load_picture(version);
 }
@@ -244,6 +242,9 @@ void MainWindow::on_sobel_picture_clicked()
         return;
     }
     IPP_sobel(version);
+    history += QString(operate_count+0x30) + ". 图像锐化\n";
+    operate_count++;
+    ui->history->setText(history);
     version += 1;
     MainWindow::load_picture(version);
 }
@@ -258,6 +259,9 @@ void MainWindow::on_blur_picture_clicked()
         return;
     }
     IPP_blur(version, 10);
+    history += QString(operate_count+0x30) + ". 图像模糊\n";
+    operate_count++;
+    ui->history->setText(history);
     version += 1;
     MainWindow::load_picture(version);
 }
@@ -272,6 +276,9 @@ void MainWindow::on_gray_picture_clicked()
         return;
     }
     IPP_gray(version);
+    history += QString(operate_count+0x30) + ". 转为灰度图\n";
+    operate_count++;
+    ui->history->setText(history);
     version += 1;
     MainWindow::load_picture(version);
 }
@@ -286,6 +293,9 @@ void MainWindow::on_RGB_G_clicked()
         return;
     }
     IPP_split(version, GREEN);
+    history += QString(operate_count+0x30) + ". 获取图片的绿色RGB通道\n";
+    operate_count++;
+    ui->history->setText(history);
     version += 1;
     MainWindow::load_picture(version);
 }
@@ -301,8 +311,16 @@ void MainWindow::on_RGB_B_clicked()
         return;
     }
     IPP_split(version, BLUE);
+    history += QString(operate_count+0x30) + ". 获取图片的绿色RGB通道\n";
+    operate_count++;
+    ui->history->setText(history);
     version += 1;
     MainWindow::load_picture(version);
+}
+
+int MainWindow::getversion()
+{
+    return version;
 }
 
 QString MainWindow::GetName()
@@ -331,7 +349,7 @@ void delay(int seconds)
    while ((clock()-start) < lay)
      ;
 }
-void MainWindow::on_horizontalSlider_valueChanged(int value)
+void MainWindow::on_horizontalSlider_valueChanged(int value)    // 改变亮度
 {
     static int last_light_value = 0;
     if (!if_selected){
@@ -344,4 +362,96 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
     last_light_value = value;
 }
 
+void MainWindow::Mouse_click()
+{
+    captureHelper = new CaptureScreen(this);
+    connect(captureHelper, SIGNAL(signalCompleteCature(QPoint, QPoint)), this, SLOT(onCompleteCature(QPoint, QPoint)));
+    captureHelper->show();
+}
 
+
+void MainWindow::onCompleteCature(QPoint start_point, QPoint end_point)
+{
+    //version++;
+    qDebug() << start_point << " " << end_point;
+    int row, col;
+    row = IPP_rows(version);  // 宽度
+    col = IPP_cols(version);  // 长度
+    int pic_show_cols, pic_show_rows;  // 当前界面展示的图片长度与图片宽度
+    double x = col / row;
+    double y = 781.0 / 541.0;
+    if (x <= y)
+    {
+        pic_show_rows = 541;
+        pic_show_cols = (double)col * 541.0 / (double)row;
+    }
+    else{
+        pic_show_cols = 781;
+        pic_show_rows = row * 781.0 / (double)col;
+    }
+    int real_x1, real_x2, real_y1, real_y2;
+    qDebug() << col << " " << row;
+    qDebug() << "the actual size: " << pic_show_cols << " " << pic_show_rows;
+    if (start_point.x() == end_point.x() || start_point.y() == end_point.y())
+    {
+        QMessageBox message(QMessageBox::NoIcon, "error", "Error on selecting parts!", QMessageBox::Yes, NULL);
+        message.exec();
+        return;
+    }
+    int sim_x1, sim_x2, sim_y1, sim_y2;
+    if (start_point.x() < end_point.x())
+    {
+        if (start_point.y() < end_point.y())
+        {
+            sim_x1 = start_point.x();
+            sim_y1 = start_point.y();
+            sim_x2 = end_point.x();
+            sim_y2 = end_point.y();
+        }
+        else
+        {
+            sim_x1 = start_point.x();
+            sim_y1 = end_point.y();
+            sim_x2 = end_point.x();
+            sim_y2 = start_point.y();
+        }
+    }
+    else
+    {
+        if (start_point.y() < end_point.y())
+        {
+            sim_x1 = end_point.x();
+            sim_x2 = start_point.x();
+            sim_y1 = start_point.y();
+            sim_y2 = end_point.y();
+        }
+        else
+        {
+            sim_x1 = end_point.x();
+            sim_y1 = end_point.y();
+            sim_x2 = start_point.x();
+            sim_y2 = start_point.y();
+        }
+    }
+
+    double temp = (double)sim_x1 / (double)pic_show_cols;
+    real_x1 = temp * col;
+    temp = (double)sim_x2 / (double)pic_show_cols;
+    real_x2 = temp * col;
+    temp = (double)sim_y1 / (double)pic_show_rows;
+    real_y1 = temp * row;
+    temp = (double)sim_y2 / (double)pic_show_rows;
+    real_y2 = temp * row;
+    qDebug() << "(" << real_x1 << ", " << real_y1 << "), (" << real_x2 << ", " << real_y2 << ")";
+
+    IPP_cut(version, real_x1, real_y1, real_x2 - real_x1, real_y2 - real_y1);
+
+    //QString path = GetName();
+    //captureImage.save(path);
+    //load_picture(version);
+}
+
+void MainWindow::on_cut_pic_clicked()
+{
+    Mouse_click();
+}

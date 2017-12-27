@@ -6,6 +6,7 @@
 #include "select_pic_first.h"
 #include <fstream>
 #include <iostream>
+#include <capturescreen.h>
 
 #define DEFAULTPATH "temp/"      // a catalog to save the picture
 
@@ -20,6 +21,8 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    static int getversion();
+    static int version;  // used to mark the picture editing
     ~MainWindow();
 
 
@@ -48,8 +51,13 @@ private slots:
 
     void on_horizontalSlider_valueChanged(int value);
 
+    void Mouse_click();
+
+    void onCompleteCature(QPoint start_point, QPoint end_point);
+
+    void on_cut_pic_clicked();
+
 private:
-    int version; // used to mark the picture editing
     Ui::MainWindow *ui;
     QAction *openAction;
     QAction *saveAction;
@@ -62,6 +70,9 @@ private:
     Select_pic_first *Pic_Select_Dialog;
     QString GetName();
     QString GetSize();
+    QString history;
+    int operate_count;
+    CaptureScreen* captureHelper;
 };
 
 
