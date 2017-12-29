@@ -37,6 +37,8 @@ bool IPP_sobel(version v);
 //图像锐化 兼 边缘检测
 
 bool IPP_hist(version v);
+
+bool IPP_hist(string path);
 //显示直方图，直方图图片存在/temp/hist.jpg
 
 bool IPP_split(version v,IPP_CHANNEL c);

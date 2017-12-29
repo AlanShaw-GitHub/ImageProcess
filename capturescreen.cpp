@@ -7,9 +7,10 @@
 #include <QDebug>
 #include <basic_img.h>
 
-CaptureScreen::CaptureScreen(QWidget *parent)
+CaptureScreen::CaptureScreen(QWidget *parent, bool is_part)
     : QWidget(parent)
     , m_isMousePress(false)
+    , if_parts(is_part)
 {
     initWindow();
     //setGeometry(0, 210, 800, 530);
@@ -37,7 +38,6 @@ void CaptureScreen::loadBackgroundPixmap()
     QPixmap *pixmap = new QPixmap(pic_path);
     *pixmap = pixmap->scaled(781, 541, Qt::KeepAspectRatio);
     m_loadPixmap = *pixmap;
-    //m_loadPixmap = QPixmap::grabWindow(QApplication::desktop()->winId()); //抓取当前屏幕的图片;
     m_screenwidth = m_loadPixmap.width();
     m_screenheight = m_loadPixmap.height();
     if (m_screenwidth == 781)
@@ -56,6 +56,11 @@ void CaptureScreen::mousePressEvent(QMouseEvent *event)
     {
         m_isMousePress = true;
         m_beginPoint = event->pos();
+    }
+    if (if_parts == 0)    // 漫水覆盖，只选择一个点
+    {
+        signalCompleteCature2(m_beginPoint);
+        setVisible(0);
     }
 
     return QWidget::mousePressEvent(event);
@@ -123,3 +128,4 @@ QRect CaptureScreen::getRect(const QPoint &beginPoint, const QPoint &endPoint)
 
     return selectedRect;
 }
+

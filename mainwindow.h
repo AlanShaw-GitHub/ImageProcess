@@ -51,11 +51,39 @@ private slots:
 
     void on_horizontalSlider_valueChanged(int value);
 
-    void Mouse_click();
+    void Mouse_click(bool is_part);
 
     void onCompleteCature(QPoint start_point, QPoint end_point);
 
     void on_cut_pic_clicked();
+
+    void on_pic_mix_clicked();
+
+    void on_MixSlider_valueChanged(int value);
+
+    QString GetSize(QString mix_path);
+
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_ContrastSlider_valueChanged(int value);
+
+    void on_buttonBox_2_accepted();
+
+    void on_buttonBox_2_rejected();
+
+    void on_contrast_button_accepted();
+
+    void on_contrast_button_rejected();
+
+    void on_floodfill_clicked();
+
+    void onCompleteCature2(QPoint start_point);
 
 private:
     Ui::MainWindow *ui;
@@ -73,6 +101,11 @@ private:
     QString history;
     int operate_count;
     CaptureScreen* captureHelper;
+    int mix_pic_loaded;
+    int already_have_mixed;
+    int if_real_mix_change;
+    int if_brightness_changed;
+    int if_contrast_changed;
 };
 
 
