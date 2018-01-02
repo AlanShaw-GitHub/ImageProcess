@@ -2,8 +2,8 @@
 // Created by 肖振新 on 2017/12/7.
 //
 
-#include "include/advance_img.h"
-#include "include/video/fisheye.h"
+#include "advance_img.h"
+
 
 bool IPP_img_face_detection(version v){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
@@ -62,11 +62,10 @@ bool IPP_img_face_detection(version v){
     return true;
 }
 
-bool IPP_addweight(version v1,version v2,double weightv1,double weightv2){
+bool IPP_addweight(version v1,double weightv1,double weightv2){
     string input_path1 = DEFAULT_PATH + to_string(v1) + ".jpg";
-    string input_path2 = DEFAULT_PATH + to_string(v2) + ".jpg";
-    string output_path = DEFAULT_PATH + string("addweight_") + to_string(v1) +
-                         string("_") + to_string(v2) + ".jpg";
+    string input_path2 = DEFAULT_PATH + (string)"mix.jpg";
+    string output_path = DEFAULT_PATH + (string)"mixed.jpg";
     Mat input_img1 = imread(input_path1);
     Mat input_img2 = imread(input_path2);
     if(input_img1.empty() || input_img2.empty())

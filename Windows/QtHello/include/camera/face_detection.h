@@ -5,7 +5,7 @@
 #ifndef IPP_FACE_DETECTION_H
 #define IPP_FACE_DETECTION_H
 
-#include "include/IPP_Core.h"
+#include "IPP_Core.h"
 bool IPP_face_detection();
 
 #endif //IPP_FACE_DETECTION_H

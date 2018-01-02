@@ -5,13 +5,13 @@
 #ifndef IPP_CORE_H
 #define IPP_CORE_H
 
-#include <E:\opencv\opencv\build\include\opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 #include <iostream>
 
 using namespace std;
 using  namespace cv;
 
-#define  DEFAULT_PATH "D:/temp/"
+#define  DEFAULT_PATH "temp/"
 #define PI 3.1415926
 typedef int version;
 enum IPP_TYPE{

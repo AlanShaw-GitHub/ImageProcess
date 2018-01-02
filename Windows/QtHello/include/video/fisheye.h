@@ -5,7 +5,7 @@
 #ifndef IPP_FISHEYE_H
 #define IPP_FISHEYE_H
 
-#include "include/IPP_Core.h"
+#include "IPP_Core.h"
 
 bool IPP_fisheye_video(version v,int image_size = 500,int space = 150);
 //将会更改在temp/v.mp4的文件并写到temp/v+1.mp4
