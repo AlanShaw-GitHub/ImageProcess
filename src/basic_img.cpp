@@ -4,6 +4,27 @@
 
 #include "basic_img.h"
 
+
+bool IPP_png2jpg(version v){
+    string input_path = DEFAULT_PATH + to_string(v) + ".png";
+    string output_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    Mat input_img = imread(input_path);
+    Mat output_img = input_img;
+    imwrite(output_path,output_img);
+
+    return true;
+}
+
+bool IPP_jpg2png(version v){
+    string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
+    string output_path = DEFAULT_PATH + to_string(v) + ".png";
+    Mat input_img = imread(input_path);
+    Mat output_img = input_img;
+    imwrite(output_path,output_img);
+
+    return true;
+}
+
 bool IPP_resize(version v,IPP_TYPE type,int percent){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
     string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
