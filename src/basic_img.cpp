@@ -364,12 +364,13 @@ bool IPP_floodfill(version v,int x,int y,int range){
         return false;
     Mat output_img;
 
-    int b = input_img.at<Vec3b>(x,y)[0];
-    int g = input_img.at<Vec3b>(x,y)[1];
-    int r = input_img.at<Vec3b>(x,y)[2];
-    floodFill(input_img,Point(x,y),Scalar(b,g,r),0,Scalar(range,range,range),Scalar(range,range,range));
+    int b = input_img.at<Vec3b>(y,x)[0];
+    int g = input_img.at<Vec3b>(y,x)[1];
+    int r = input_img.at<Vec3b>(y,x)[2];
+    Rect comp;
+    floodFill(input_img,Point(x,y),Scalar(b,g,r),&comp,Scalar(range,range,range),Scalar(range,range,range));
     output_img = input_img;
-    line(output_img,Point(x,y),Point(x+1,y+1),Scalar(0,255,0),5);
+    //line(output_img,Point(x,y),Point(x+1,y+1),Scalar(0,255,0),5);
 
     imwrite(output_path,output_img);
     return true;
