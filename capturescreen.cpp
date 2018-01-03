@@ -34,7 +34,7 @@ void CaptureScreen::initWindow()
 
 void CaptureScreen::loadBackgroundPixmap()
 {
-    QString pic_path = DEFAULTPATH + QString::number(MainWindow::getversion(), 10) + ".jpg";
+    QString pic_path = QApplication::applicationDirPath() + QString("/") + DEFAULTPATH + QString::number(MainWindow::getversion(), 10) + ".jpg";
     QPixmap *pixmap = new QPixmap(pic_path);
     *pixmap = pixmap->scaled(781, 541, Qt::KeepAspectRatio);
     m_loadPixmap = *pixmap;

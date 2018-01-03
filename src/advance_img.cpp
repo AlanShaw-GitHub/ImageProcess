@@ -3,6 +3,7 @@
 //
 
 #include "advance_img.h"
+#include <QApplication>
 
 
 bool IPP_img_face_detection(version v){
@@ -17,8 +18,8 @@ bool IPP_img_face_detection(version v){
     CascadeClassifier face_cascade;
     CascadeClassifier eyes_cascade;
     String window_name = "Capture - Face detection";
-    face_cascade_name = "./data/haarcascade_frontalface_alt.xml";
-    eyes_cascade_name = "./data/haarcascade_eye_tree_eyeglasses.xml";
+    face_cascade_name = QApplication::applicationDirPath().toStdString()+"/data/haarcascade_frontalface_alt.xml";
+    eyes_cascade_name = QApplication::applicationDirPath().toStdString()+"/data/haarcascade_eye_tree_eyeglasses.xml";
     Mat frame = input_img;;
 
     if( !face_cascade.load( face_cascade_name ) )
