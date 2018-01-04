@@ -1,8 +1,8 @@
 #include "include/IPP_World.h"
 
 int main(){
-    version v = 10;
-    IPP_floodfill(v,7000,4000,20);
+    version v = 6;
+    IPP_rotate(7);
 
     return 0;
 }

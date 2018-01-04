@@ -42,7 +42,7 @@ bool IPP_resize(version v,IPP_TYPE type,int percent){
     return true;
 }
 
-bool IPP_rotate(version v,double degree){
+bool IPP_rotate(version v){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
     string output_path = DEFAULT_PATH + to_string(v+1) + ".jpg";
     Mat input_img = imread(input_path);
@@ -50,27 +50,16 @@ bool IPP_rotate(version v,double degree){
         return false;
     Mat output_img;
 
-    int maxlength = max(input_img.cols, input_img.rows);
-    Point2f pt(input_img.cols/2.,input_img.rows/2.);
-    Mat r = getRotationMatrix2D(pt,degree,1.0);
-    warpAffine(input_img,output_img,r,Size(input_img.cols, input_img.rows));
-    if(static_cast<int>(degree) == 90){
-        if(input_img.cols > input_img.rows)
-            output_img = output_img.colRange((input_img.cols-input_img.rows)/2,(input_img.cols+input_img.rows)/2);
-        else
-            output_img = output_img.rowRange((input_img.rows-input_img.cols)/2,(input_img.cols+input_img.rows)/2);
-    }
-    else {
-        if (input_img.cols > input_img.rows) {
-            output_img = output_img.colRange(input_img.cols / 2 - 0.35 * input_img.rows,
-                                             input_img.cols / 2 + 0.35 * input_img.rows);
-            output_img = output_img.rowRange(input_img.rows * 0.147, input_img.rows * 0.852);
-        } else {
-            output_img = output_img.rowRange(input_img.rows / 2 - 0.35 * input_img.cols,
-                                             input_img.rows / 2 + 0.35 * input_img.cols);
-            output_img = output_img.colRange(input_img.cols * 0.147, input_img.cols * 0.852);
-        }
-    }
+    double angle = 90;
+    cv::Point2f center(input_img.cols / 2, input_img.rows / 2);
+    cv::Mat rot = cv::getRotationMatrix2D(center, angle, 1);
+    cv::Rect bbox = cv::RotatedRect(center, input_img.size(), angle).boundingRect();
+
+    rot.at<double>(0, 2) += bbox.width / 2.0 - center.x;
+    rot.at<double>(1, 2) += bbox.height / 2.0 - center.y;
+
+    cv::warpAffine(input_img, output_img, rot, bbox.size());
+
     imwrite(output_path,output_img);
     return true;
 }
