@@ -30,28 +30,30 @@ HEADERS += \
         include/IPP_Core.h \
         include/IPP_World.h \
         include/video.h \
-        #include/camera/camshift.h \
-        #include/camera/face_detection.h \
-        #include/camera/optical_flow.h \
-        #include/video/fisheye.h \
+        include/camera/camshift.h \
+        include/camera/face_detection.h \
+        include/camera/optical_flow.h \
+        include/video/fisheye.h \
     select_pic_first.h \
     need_save.h \
     selectpart.h \
-    capturescreen.h
+    capturescreen.h \
+    show_background.h
 
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
         src/advance_img.cpp \
         src/basic_img.cpp \
-        #src/camera/camshift.cpp \
-        #src/camera/face_detection.cpp \
-        #src/camera/optical_flow.cpp \
+        src/camera/camshift.cpp \
+        src/camera/face_detection.cpp \
+        src/camera/optical_flow.cpp \
         src/fisheye/fisheye.cpp \
     selectpart.cpp \
     capturescreen.cpp \
     select_pic_first.cpp \
-    need_save.cpp
+    need_save.cpp \
+    show_background.cpp
 
 FORMS += \
         mainwindow.ui \

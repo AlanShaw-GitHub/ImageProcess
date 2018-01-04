@@ -30,15 +30,15 @@ enum IPP_DRAW{
     LINE
 };
 enum IPP_THRESHOLD{
-    THRESH_BINARY     = 0,
+    IPP_THRESH_BINARY     = 0,
     //!< \f[\texttt{dst} (x,y) =  \fork{\texttt{maxval}}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{0}{otherwise}\f]
-    THRESH_BINARY_INV = 1,
+    IPP_THRESH_BINARY_INV = 1,
     //!< \f[\texttt{dst} (x,y) =  \fork{0}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{\texttt{maxval}}{otherwise}\f]
-    THRESH_TRUNC      = 2,
+    IPP_THRESH_TRUNC      = 2,
     //!< \f[\texttt{dst} (x,y) =  \fork{\texttt{threshold}}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{\texttt{src}(x,y)}{otherwise}\f]
-    THRESH_TOZERO     = 3,
+    IPP_THRESH_TOZERO     = 3,
     //!< \f[\texttt{dst} (x,y) =  \fork{\texttt{src}(x,y)}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{0}{otherwise}\f]
-    THRESH_TOZERO_INV = 4,
+    IPP_THRESH_TOZERO_INV = 4,
     //!< \f[\texttt{dst} (x,y) =  \fork{0}{if \(\texttt{src}(x,y) > \texttt{thresh}\)}{\texttt{src}(x,y)}{otherwise}\f]
 
 };

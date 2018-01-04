@@ -5,8 +5,11 @@
 #include <QPushButton>
 #include "select_pic_first.h"
 #include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
 #include <capturescreen.h>
+#include <show_background.h>
 
 #define DEFAULTPATH "temp/"      // a catalog to save the picture
 
@@ -85,6 +88,22 @@ private slots:
 
     void onCompleteCature2(QPoint start_point);
 
+    void on_thr_binary_clicked();
+
+    void on_thr_bin_inv_clicked();
+
+    void on_thr_trunc_clicked();
+
+    void on_thr_tozero_clicked();
+
+    void on_thr_toz_inv_clicked();
+
+    void on_cam_camshift_clicked();
+
+    void on_cam_optiflow_clicked();
+
+    void on_cam_facedet_clicked();
+
 private:
     Ui::MainWindow *ui;
     QAction *openAction;
@@ -106,6 +125,8 @@ private:
     int if_real_mix_change;
     int if_brightness_changed;
     int if_contrast_changed;
+    int if_real_light_changed;
+    int if_real_contrast_changed;
 };
 
 

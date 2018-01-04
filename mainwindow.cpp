@@ -12,16 +12,31 @@
 #include <QString>
 #include <QPushButton>
 #include <string>
+#include <stdio.h>
 #include <iostream>
 #include <stdio.h>
 #include "include/IPP_World.h"
+#include "include/IPP_Core.h"
 #include "select_pic_first.h"
+#include <show_background.h>
+
+
+
+void delay(int seconds)
+{
+   clock_t start = clock();
+   clock_t lay = (clock_t)seconds * CLOCKS_PER_SEC / 1000;
+   while ((clock()-start) < lay)
+     ;
+}
 
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
+
     qDebug()<<"current applicationDirPath: "<<QCoreApplication::applicationDirPath();
     version = 0;
     mix_pic_loaded = 0;
@@ -33,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("Picture Editor");
     if_brightness_changed = 0;
     if_contrast_changed = 0;
+    if_real_light_changed = 1;
+    if_real_contrast_changed = 1;
 
     QString file_pic_path = QApplication::applicationDirPath() + "/" + (QString)"img/file.png";
     openAction = new QAction(QIcon(file_pic_path), tr("&Open..."), this);
@@ -56,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QString undo_pic_path = QApplication::applicationDirPath() + "/" + (QString)"img/undo.png";
     undoAction = new QAction(QIcon(undo_pic_path), tr("&Undo..."), this);
-    undoAction->setShortcuts(QKeySequence::Save);
+    undoAction->setShortcuts(QKeySequence::Undo);
     undoAction->setStatusTip(tr("Undo the last operation"));
     connect(undoAction, &QAction::triggered, this, &MainWindow::undo);
     QMenu *undo = menuBar()->addMenu((tr("&Command")));
@@ -115,7 +132,7 @@ void MainWindow::save_picture()
     QString img = GetName();
     QString filename = QFileDialog::getSaveFileName(this,
         tr("Save Image"),
-        "/Users/zuhxs/Desktop/shuluo",
+        "/Users",
         tr("*.jpg;; *.png;; *.bmp")); //选择路径
     if(filename.isEmpty())
     {
@@ -146,6 +163,12 @@ void MainWindow::open_picture()
         if (message.exec() == QMessageBox::No)
             return;
     }
+    QString name = QFileDialog::getOpenFileName(NULL, "Open a file", "/Users/", tr("Images (*.png *.jpg)"));
+    qDebug() << name;
+    if (name == NULL){
+        qDebug() << "hello";
+        return;
+    }
     history.clear();
     operate_count = 1;
     QString rm_command = "rm " + QApplication::applicationDirPath() + "/temp/*.jpg";
@@ -154,21 +177,52 @@ void MainWindow::open_picture()
     command = command2.data();
     qDebug() << command;
     system(command);
-    QString name = QFileDialog::getOpenFileName(NULL, "Open a file", "/Users/zuhxs/Desktop/pic", tr("Images (*.png *.jpg)"));
-    if (name == NULL)
+
+
+    char *tempname;
+    QByteArray ba = name.toLatin1();
+    tempname=ba.data();
+
+    FILE *type_check = fopen(tempname, "r");
+    char check_bit[4];
+    fread(check_bit, sizeof(char), 2, type_check);
+
+    int png_flag = 0;
+    qDebug("%d, %d", check_bit[0], check_bit[1]);
+    if (check_bit[0] == -119 && check_bit[1] == 80)    // file head means it is a .png file (0x89 0x50 0x4e 0x47)
+        png_flag = 1;
+    else if (check_bit[0] == -1 && check_bit[1] == -40)   // file head means it is a .jpg file (0xff 0xd8 0xff 0xe0)
+        png_flag = 0;
+    else{
+        QMessageBox message(QMessageBox::NoIcon, "warning", "It is not a png or a jpg file!", QMessageBox::Ok, NULL);
+        message.exec();
         return;
+    }
+
     if_selected = 1;
+
+
     this->pic_path = name;
     history += QString::number(operate_count, 10) + ". 打开 " + name + "\n";
     operate_count++;
     ui->history->setText(history);
-
-    QString cp_command = "cp " + pic_path + " " + GetName();
+    QString cp_command;
+    if (png_flag == 1)
+    {
+        cp_command = "cp " + pic_path + " " + QApplication::applicationDirPath() + "/temp/0.png";
+    }
+    else{
+        cp_command = "cp " + pic_path + " " + GetName();
+    }
     char*  ch;
-    QByteArray ba = cp_command.toLatin1();
+    ba = cp_command.toLatin1();
     ch=ba.data();
     qDebug() << ch;
     system(ch);
+    if (png_flag == 1)
+    {
+        IPP_png2jpg(0);
+    }
     load_picture(version);
 }
 
@@ -238,7 +292,7 @@ void MainWindow::on_rotate_picture_clicked()
         }
         return;
     }
-    IPP_rotate(version, 90);
+    IPP_rotate(version);
     version += 1;
     MainWindow::load_picture(version);
 }
@@ -366,13 +420,6 @@ QString MainWindow::GetSize(QString mix_path)
     return result;
 }
 
-void delay(int seconds)
-{
-   clock_t start = clock();
-   clock_t lay = (clock_t)seconds * CLOCKS_PER_SEC / 1000;
-   while ((clock()-start) < lay)
-     ;
-}
 void MainWindow::on_horizontalSlider_valueChanged(int value)    // 改变亮度
 {
     if (!if_selected){
@@ -778,4 +825,104 @@ void MainWindow::on_floodfill_clicked()
         return;
     }
     Mouse_click(0);
+}
+
+void MainWindow::on_thr_binary_clicked()
+{
+    if (!if_selected){
+        QMessageBox message(QMessageBox::NoIcon, "error", "Please select a picture first!", QMessageBox::Yes | QMessageBox::No, NULL);
+        if (message.exec() == QMessageBox::Yes){
+            MainWindow::open_picture();
+        }
+        return;
+    }
+    IPP_threshold(version, ui->ThresholdSlider->value(), IPP_THRESH_BINARY);  // THRESH_BINARY
+    history += QString::number(operate_count, 10) + ". 对" + QString::number(ui->ThresholdSlider->value(), 10) + "以下的颜色进行二进制阈值操作\n";
+    operate_count++;
+    ui->history->setText(history);
+    version += 1;
+    MainWindow::load_picture(version);
+}
+
+void MainWindow::on_thr_bin_inv_clicked()
+{
+    if (!if_selected){
+        QMessageBox message(QMessageBox::NoIcon, "error", "Please select a picture first!", QMessageBox::Yes | QMessageBox::No, NULL);
+        if (message.exec() == QMessageBox::Yes){
+            MainWindow::open_picture();
+        }
+        return;
+    }
+    IPP_threshold(version, ui->ThresholdSlider->value(), IPP_THRESH_BINARY_INV);    // THRESH_BINARY_INV
+    history += QString::number(operate_count, 10) + ". 对" + QString::number(ui->ThresholdSlider->value(), 10) + "以下的颜色进行反二进制阈值\n";
+    operate_count++;
+    ui->history->setText(history);
+    version += 1;
+    MainWindow::load_picture(version);
+}
+
+void MainWindow::on_thr_trunc_clicked()
+{
+    if (!if_selected){
+        QMessageBox message(QMessageBox::NoIcon, "error", "Please select a picture first!", QMessageBox::Yes | QMessageBox::No, NULL);
+        if (message.exec() == QMessageBox::Yes){
+            MainWindow::open_picture();
+        }
+        return;
+    }
+    IPP_threshold(version, ui->ThresholdSlider->value(), IPP_THRESH_TRUNC);
+    history += QString::number(operate_count, 10) + ". 对" + QString::number(ui->ThresholdSlider->value(), 10) + "以下的颜色进行截断操作\n";
+    operate_count++;
+    ui->history->setText(history);
+    version += 1;
+    MainWindow::load_picture(version);
+}
+
+void MainWindow::on_thr_tozero_clicked()
+{
+    if (!if_selected){
+        QMessageBox message(QMessageBox::NoIcon, "error", "Please select a picture first!", QMessageBox::Yes | QMessageBox::No, NULL);
+        if (message.exec() == QMessageBox::Yes){
+            MainWindow::open_picture();
+        }
+        return;
+    }
+    IPP_threshold(version, ui->ThresholdSlider->value(), IPP_THRESH_TOZERO);
+    history += QString::number(operate_count, 10) + ". 对" + QString::number(ui->ThresholdSlider->value(), 10) + "以下的颜色进行反阈值化为0操作\n";
+    operate_count++;
+    ui->history->setText(history);
+    version += 1;
+    MainWindow::load_picture(version);
+}
+
+void MainWindow::on_thr_toz_inv_clicked()
+{
+    if (!if_selected){
+        QMessageBox message(QMessageBox::NoIcon, "error", "Please select a picture first!", QMessageBox::Yes | QMessageBox::No, NULL);
+        if (message.exec() == QMessageBox::Yes){
+            MainWindow::open_picture();
+        }
+        return;
+    }
+    IPP_threshold(version, ui->ThresholdSlider->value(), IPP_THRESH_TOZERO_INV);
+    history += QString::number(operate_count, 10) + ". 对" + QString::number(ui->ThresholdSlider->value(), 10) + "以下的颜色进行阈值化为0操作\n";
+    operate_count++;
+    ui->history->setText(history);
+    version += 1;
+    MainWindow::load_picture(version);
+}
+
+void MainWindow::on_cam_camshift_clicked()
+{
+    IPP_camshift();
+}
+
+void MainWindow::on_cam_optiflow_clicked()
+{
+    IPP_optical_flow();
+}
+
+void MainWindow::on_cam_facedet_clicked()
+{
+    IPP_face_detection();
 }

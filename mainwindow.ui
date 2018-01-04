@@ -427,8 +427,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QDialogButtonBox" name="buttonBox">
       <property name="geometry">
        <rect>
-        <x>46</x>
-        <y>80</y>
+        <x>27</x>
+        <y>60</y>
         <width>164</width>
         <height>32</height>
        </rect>
@@ -440,9 +440,9 @@ p, li { white-space: pre-wrap; }
      <widget class="QSlider" name="MixSlider">
       <property name="geometry">
        <rect>
-        <x>124</x>
-        <y>55</y>
-        <width>84</width>
+        <x>103</x>
+        <y>40</y>
+        <width>81</width>
         <height>22</height>
        </rect>
       </property>
@@ -453,8 +453,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>53</x>
-        <y>55</y>
+        <x>30</x>
+        <y>40</y>
         <width>66</width>
         <height>19</height>
        </rect>
@@ -466,34 +466,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>30</y>
-        <width>107</width>
-        <height>66</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>人脸检测</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="text">
-          <string>生成鱼眼图</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>50</x>
-        <y>20</y>
+        <x>30</x>
+        <y>0</y>
         <width>163</width>
         <height>40</height>
        </rect>
@@ -521,6 +495,183 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="pic_mix">
          <property name="text">
           <string>选择图片2</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>-5</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>图片阈值化</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="ThresholdSlider">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>13</y>
+        <width>121</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>255</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="thr_binary">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>30</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>二进制阈值</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="thr_trunc">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>70</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>截断阈值</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="thr_bin_inv">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>50</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>反二进制阈值</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="thr_tozero">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>90</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>  阈值化为0</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="thr_toz_inv">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>110</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>反阈值化为0</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>15</y>
+        <width>111</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>摄像头功能(demo)</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cam_camshift">
+      <property name="geometry">
+       <rect>
+        <x>372</x>
+        <y>40</y>
+        <width>101</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>物体追踪</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cam_facedet">
+      <property name="geometry">
+       <rect>
+        <x>372</x>
+        <y>100</y>
+        <width>101</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>人脸检测</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="cam_optiflow">
+      <property name="geometry">
+       <rect>
+        <x>372</x>
+        <y>70</y>
+        <width>101</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>光流算法</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>203</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>人脸检测</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="text">
+          <string>生成鱼眼图</string>
          </property>
         </widget>
        </item>
@@ -559,7 +710,7 @@ p, li { white-space: pre-wrap; }
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -570,7 +721,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <layout class="QVBoxLayout" name="verticalLayout"/>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -593,6 +744,14 @@ p, li { white-space: pre-wrap; }
    </property>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="font">
+    <font>
+     <family>Al Tarikh</family>
+    </font>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
    <property name="floatable">
     <bool>true</bool>
    </property>
