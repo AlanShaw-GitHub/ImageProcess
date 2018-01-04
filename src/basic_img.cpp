@@ -106,15 +106,18 @@ bool IPP_csv(version v,IPP_CHANNEL c){
     vector<Mat> input_img_array;
     split(input_img,input_img_array);
     if(c == RED) {
-        file.open("./temp/MAT_R.csv");
+        string openr = DEFAULT_PATH + (string)"MAT_R.csv";
+        file.open(openr);
         file << input_img_array[2];
     }
     if(c == GREEN) {
-        file.open("./temp/MAT_G.csv");
+        string openg = DEFAULT_PATH + (string)"MAT_G.csv";
+        file.open(openg);
         file << input_img_array[1];
     }
     if(c == BLUE) {
-        file.open("./temp/MAT_B.csv");
+        string openb = DEFAULT_PATH + (string)"MAT_B.csv";
+        file.open(openb);
         file << input_img_array[0];
     }
 
@@ -193,7 +196,7 @@ bool IPP_sobel(version v){
 
 bool IPP_hist(version v){
     string input_path = DEFAULT_PATH + to_string(v) + ".jpg";
-    string output_path = "./temp/hist.jpg";
+    string output_path = DEFAULT_PATH + string("hist.jpg");
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;
@@ -258,7 +261,7 @@ bool IPP_hist(version v){
 
 bool IPP_hist(string path){
     string input_path = path;
-    string output_path = "./temp/hist_mix.jpg";
+    string output_path = DEFAULT_PATH + "hist_mix.jpg";
     Mat input_img = imread(input_path);
     if(input_img.empty() == true)
         return false;

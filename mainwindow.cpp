@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug()<<"current applicationDirPath: "<<QCoreApplication::applicationDirPath();
     version = 0;
     mix_pic_loaded = 0;
+    if_selected = 0;
     already_have_mixed = 0;
     if_real_mix_change = 0;
     //ui->MainWindow->version = 0;
@@ -33,7 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
     if_brightness_changed = 0;
     if_contrast_changed = 0;
 
-    openAction = new QAction(QIcon("img/file.png"), tr("&Open..."), this);
+    QString file_pic_path = QApplication::applicationDirPath() + "/" + (QString)"img/file.png";
+    openAction = new QAction(QIcon(file_pic_path), tr("&Open..."), this);
     openAction->setShortcuts(QKeySequence::Open);
     openAction->setStatusTip(tr("Open an existing picture"));
     connect(openAction, &QAction::triggered, this, &MainWindow::open_picture);
@@ -42,7 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QToolBar *toolBar_open = addToolBar(tr("&File"));
     toolBar_open->addAction(openAction);
 
-    saveAction = new QAction(QIcon("img/save.png"), tr("&Save..."), this);
+    QString save_pic_path = QApplication::applicationDirPath() + "/" + (QString)"img/save.png";
+    saveAction = new QAction(QIcon(save_pic_path), tr("&Save..."), this);
     saveAction->setShortcuts(QKeySequence::Save);
     saveAction->setStatusTip(tr("Save the current picture"));
     connect(saveAction, &QAction::triggered, this, &MainWindow::save_picture);
@@ -51,7 +54,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QToolBar *toolBar_save = addToolBar(tr("&Save"));
     toolBar_save->addAction(saveAction);
 
-    undoAction = new QAction(QIcon("img/undo.png"), tr("&Undo..."), this);
+    QString undo_pic_path = QApplication::applicationDirPath() + "/" + (QString)"img/undo.png";
+    undoAction = new QAction(QIcon(undo_pic_path), tr("&Undo..."), this);
     undoAction->setShortcuts(QKeySequence::Save);
     undoAction->setStatusTip(tr("Undo the last operation"));
     connect(undoAction, &QAction::triggered, this, &MainWindow::undo);
@@ -144,7 +148,7 @@ void MainWindow::open_picture()
     }
     history.clear();
     operate_count = 1;
-    QString rm_command = "rm temp/*.jpg";
+    QString rm_command = "rm " + QApplication::applicationDirPath() + "/temp/*.jpg";
     char *command;
     QByteArray command2 = rm_command.toLatin1();
     command = command2.data();
@@ -170,13 +174,13 @@ void MainWindow::open_picture()
 
 void MainWindow::load_picture(int version)
 {
-    QString pic_path = DEFAULTPATH + QString::number(version, 10) + ".jpg";
+    QString pic_path = QApplication::applicationDirPath() + QString("/") + DEFAULTPATH + QString::number(version, 10) + ".jpg";
     QImage *pixmap = new QImage(pic_path);
     *pixmap = pixmap->scaled(781, 541, Qt::KeepAspectRatio);
     ui->PictureArea->setPixmap(QPixmap::fromImage(*pixmap));
     ui->PictureArea->setAlignment(Qt::AlignCenter);
     IPP_hist(version);
-    QString hist_path = "temp/hist.jpg";
+    QString hist_path = QApplication::applicationDirPath() + "/temp/hist.jpg";
     MainWindow::load_histogram(hist_path);
     ui->pic_size->setText(GetSize());
 }
@@ -332,7 +336,8 @@ int MainWindow::getversion()
 
 QString MainWindow::GetName()
 {
-    QString pic_path = DEFAULTPATH + QString::number(version, 10) + ".jpg";
+    QString cur_path = QApplication::applicationDirPath();
+    QString pic_path = cur_path + "/" + DEFAULTPATH + QString::number(version, 10) + ".jpg";
     return pic_path;
 }
 
@@ -377,7 +382,7 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)    // 改变亮度
     if_brightness_changed = 1;
     delay(100);
     IPP_brightness(version, value);
-    QString pic_path = DEFAULTPATH + QString("lightchange.jpg");
+    QString pic_path = QApplication::applicationDirPath() +  "/" + DEFAULTPATH + QString("lightchange.jpg");
     QImage *pixmap = new QImage(pic_path);
     *pixmap = pixmap->scaled(781, 541, Qt::KeepAspectRatio);
     ui->PictureArea->setPixmap(QPixmap::fromImage(*pixmap));
@@ -532,7 +537,7 @@ void MainWindow::on_pic_mix_clicked()
         return;
     history += QString::number(operate_count, 10) + ". 图片混合，图片2为: " + name + "\n";
     ui->history->setText(history);
-    QString cp_command = "cp " + name + " " + DEFAULTPATH + (QString)"mix.jpg";
+    QString cp_command = "cp " + name + " " + QApplication::applicationDirPath() + "/" + DEFAULTPATH + (QString)"mix.jpg";
     char*  ch;
     QByteArray ba = cp_command.toLatin1();
     ch=ba.data();
@@ -568,17 +573,17 @@ void MainWindow::on_MixSlider_valueChanged(int value)
     already_have_mixed = 1;
 
 
-    QString pic_path = DEFAULTPATH + QString("mixed.jpg");
+    QString pic_path = QApplication::applicationDirPath() + QString("/temp/mixed.jpg");
     QImage *pixmap = new QImage(pic_path);
     *pixmap = pixmap->scaled(781, 541, Qt::KeepAspectRatio);
     ui->PictureArea->setPixmap(QPixmap::fromImage(*pixmap));
     ui->PictureArea->setAlignment(Qt::AlignCenter);
 
-    std::string path_mix = DEFAULT_PATH + (string)"mix.jpg";
+    std::string path_mix = QApplication::applicationDirPath().toStdString() + (string)"/temp/mix.jpg";
 
     IPP_hist(path_mix);
-    QString hist_path = "temp/hist_mix.jpg";
-    MainWindow::load_histogram(hist_path);
+    //QString hist_path = "temp/hist_mix.jpg";
+    //MainWindow::load_histogram(hist_path);
     ui->pic_size->setText(GetSize());
 }
 
@@ -593,13 +598,14 @@ void MainWindow::on_buttonBox_accepted()
         return;
     }
     version += 1;
-    QString cp_command = QString("cp ") + DEFAULTPATH + QString("mixed.jpg ") + GetName();
+    QString cp_command = QString("cp ") + QApplication::applicationDirPath() + "/" + DEFAULTPATH + QString("mixed.jpg ") + GetName();
     char*  ch;
     QByteArray ba = cp_command.toLatin1();
     ch=ba.data();
     qDebug() << ch;
     system(ch);
-    system("rm temp/mix.jpg temp/mixed.jpg");
+
+    //system("rm " + QString(QApplication::applicationDirPath()) + (QString)"/temp/mix.jpg " + QApplication::applicationDirPath() + "/temp/mixed.jpg");
     if_real_mix_change = 1;
     ui->MixSlider->setValue(0);
     already_have_mixed = 0;
@@ -618,7 +624,7 @@ void MainWindow::on_buttonBox_rejected()
         }
         return;
     }
-    system("rm temp/mix.jpg temp/mixed.jpg");
+    //system("rm " + QApplication::applicationDirPath() + "/temp/mix.jpg " + QApplication::applicationDirPath() + "/temp/mixed.jpg");
     if_real_mix_change = 1;
     ui->MixSlider->setValue(0);
     already_have_mixed = 0;
@@ -670,7 +676,7 @@ void MainWindow::on_ContrastSlider_valueChanged(int value)
     if_contrast_changed = 1;
     delay(100);
     IPP_contrast(version, value + 50);
-    QString pic_path = DEFAULTPATH + QString("contrastchange.jpg");
+    QString pic_path = QApplication::applicationDirPath() + "/" + DEFAULTPATH + QString("contrastchange.jpg");
     QImage *pixmap = new QImage(pic_path);
     *pixmap = pixmap->scaled(781, 541, Qt::KeepAspectRatio);
     ui->PictureArea->setPixmap(QPixmap::fromImage(*pixmap));
@@ -691,13 +697,13 @@ void MainWindow::on_buttonBox_2_accepted()    // 改变亮度的OK选项
         return;
     }
     version += 1;
-    QString cp_command = QString("cp ") + DEFAULTPATH + QString("lightchange.jpg ") + GetName();
+    QString cp_command = QString("cp ") + QApplication::applicationDirPath() + "/" + DEFAULTPATH + QString("lightchange.jpg ") + GetName();
     char*  ch;
     QByteArray ba = cp_command.toLatin1();
     ch=ba.data();
     qDebug() << ch;
     system(ch);
-    system("rm lightchange.jpg");
+    //system("rm " + QApplication::applicationDirPath() + "/" + DEFAULTPATH + "lightchange.jpg");
     if_brightness_changed = 0;
     ui->horizontalSlider->setValue(0);
 
@@ -740,7 +746,7 @@ void MainWindow::on_contrast_button_accepted()
     ch=ba.data();
     qDebug() << ch;
     system(ch);
-    system("rm contrastchange.jpg");
+    //system("rm " + QApplication::applicationDirPath() + "/temp/contrastchange.jpg");
     if_contrast_changed = 0;
     ui->ContrastSlider->setValue(0);
 

@@ -4,6 +4,7 @@
 
 #ifndef IPP_CORE_H
 #define IPP_CORE_H
+#include <QApplication>
 
 #include <opencv2/opencv.hpp>
 #include <iostream>
@@ -11,7 +12,7 @@
 using namespace std;
 using  namespace cv;
 
-#define  DEFAULT_PATH "./temp/"
+#define  DEFAULT_PATH QApplication::applicationDirPath().toStdString()+"/temp/"
 #define PI 3.1415926
 typedef int version;
 enum IPP_TYPE{

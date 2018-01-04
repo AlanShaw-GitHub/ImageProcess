@@ -4,6 +4,7 @@
 
 #ifndef IPP_WORLD_H
 #define IPP_WORLD_H
+#include <QApplication>
 
 #include "basic_img.h"//图像基本操作
 #include "advance_img.h"//图像进阶操作
