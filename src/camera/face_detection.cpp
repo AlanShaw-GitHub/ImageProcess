@@ -17,8 +17,8 @@ String window_name = "Capture - Face detection";
 bool IPP_face_detection()
 {
 
-    face_cascade_name = "./data/haarcascade_frontalface_alt.xml";
-    eyes_cascade_name = "./data/haarcascade_eye_tree_eyeglasses.xml";
+    face_cascade_name = "data/haarcascade_frontalface_alt.xml";
+    eyes_cascade_name = "data/haarcascade_eye_tree_eyeglasses.xml";
     VideoCapture capture;
     Mat frame;
 

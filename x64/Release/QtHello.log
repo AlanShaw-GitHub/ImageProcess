@@ -1,0 +1,24 @@
+﻿  Uic'ing mainwindow.ui...
+D:\code\VSprojects\Windows\QtHello\mainwindow.ui : warning : The name 'layoutWidget' (QWidget) is already in use, defaulting to 'layoutWidget1'.
+D:\code\VSprojects\Windows\QtHello\mainwindow.ui : warning : The name 'layoutWidget' (QWidget) is already in use, defaulting to 'layoutWidget2'.
+D:\code\VSprojects\Windows\QtHello\mainwindow.ui : warning : The name 'layoutWidget' (QWidget) is already in use, defaulting to 'layoutWidget3'.
+  main.cpp
+.\capturescreen.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include/basic_img.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\IPP_Core.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  mainwindow.cpp
+mainwindow.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+.\capturescreen.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include/basic_img.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\IPP_Core.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include/IPP_World.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\advance_img.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\video/fisheye.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\video.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\camera.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\camera/camshift.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\camera/optical_flow.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\IPP_World.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\code\vsprojects\windows\qthello\include\camera/face_detection.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+  Generating Code...
+  QtHello.vcxproj -> D:\code\VSprojects\Windows\x64\Release\QtHello.exe

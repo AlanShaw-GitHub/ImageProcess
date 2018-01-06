@@ -6,12 +6,19 @@
 #define IPP_ZOOM_H
 #include "IPP_Core.h"
 
+bool IPP_png2jpg(version v);
+bool IPP_jpg2png(version v);
+
 bool IPP_resize(version v,IPP_TYPE type,int percent);
 //resize photo,zoom in or zoom out(inreversible)
 //即为图像压缩与复原,type为COMPRESS压缩，为REBUILD重建，percent 0～100
 
 bool IPP_rotate(version v,double degree);
 //rotate photo
+
+int IPP_rows(version v);
+int IPP_cols(version v);
+//return cols and rows of the image
 
 bool IPP_cut(version v,int x,int y,int sizex,int sizey);
 //cut photo ,create new sub photo(vertical for x)
@@ -33,6 +40,8 @@ bool IPP_sobel(version v);
 //图像锐化 兼 边缘检测
 
 bool IPP_hist(version v);
+
+bool IPP_hist(string path);
 //显示直方图，直方图图片存在/temp/hist.jpg
 
 bool IPP_split(version v,IPP_CHANNEL c);
