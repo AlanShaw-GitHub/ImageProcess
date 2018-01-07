@@ -105,7 +105,13 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(776, 764);
-        MainWindow->setMaximumSize(QSize(776, 16777215));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMinimumSize(QSize(776, 764));
+        MainWindow->setMaximumSize(QSize(776, 9999));
         MainWindow->setStyleSheet(QLatin1String("\n"
 "QPushButton#resize_button {\n"
 "	border-style: solid;\n"
@@ -169,6 +175,11 @@ public:
         resize_button = new QPushButton(Basic);
         resize_button->setObjectName(QStringLiteral("resize_button"));
         resize_button->setGeometry(QRect(14, 3, 161, 31));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(resize_button->sizePolicy().hasHeightForWidth());
+        resize_button->setSizePolicy(sizePolicy1);
         QFont font;
         font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
         font.setPointSize(9);
@@ -181,6 +192,8 @@ public:
         sobel_picture = new QPushButton(Basic);
         sobel_picture->setObjectName(QStringLiteral("sobel_picture"));
         sobel_picture->setGeometry(QRect(190, 80, 131, 18));
+        sizePolicy1.setHeightForWidth(sobel_picture->sizePolicy().hasHeightForWidth());
+        sobel_picture->setSizePolicy(sizePolicy1);
         sobel_picture->setStyleSheet(QString::fromUtf8("font: 9pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         groupBox_2 = new QGroupBox(Basic);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
@@ -209,6 +222,8 @@ public:
         blur_picture = new QPushButton(Basic);
         blur_picture->setObjectName(QStringLiteral("blur_picture"));
         blur_picture->setGeometry(QRect(190, 103, 131, 18));
+        sizePolicy1.setHeightForWidth(blur_picture->sizePolicy().hasHeightForWidth());
+        blur_picture->setSizePolicy(sizePolicy1);
         blur_picture->setStyleSheet(QString::fromUtf8("font: 9pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         floodfill = new QPushButton(Basic);
         floodfill->setObjectName(QStringLiteral("floodfill"));
@@ -217,14 +232,20 @@ public:
         rotate_picture = new QPushButton(Basic);
         rotate_picture->setObjectName(QStringLiteral("rotate_picture"));
         rotate_picture->setGeometry(QRect(358, 80, 131, 18));
+        sizePolicy1.setHeightForWidth(rotate_picture->sizePolicy().hasHeightForWidth());
+        rotate_picture->setSizePolicy(sizePolicy1);
         rotate_picture->setStyleSheet(QString::fromUtf8("font: 9pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         gray_picture = new QPushButton(Basic);
         gray_picture->setObjectName(QStringLiteral("gray_picture"));
         gray_picture->setGeometry(QRect(358, 103, 131, 18));
+        sizePolicy1.setHeightForWidth(gray_picture->sizePolicy().hasHeightForWidth());
+        gray_picture->setSizePolicy(sizePolicy1);
         gray_picture->setStyleSheet(QString::fromUtf8("font: 9pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         cut_pic = new QPushButton(Basic);
         cut_pic->setObjectName(QStringLiteral("cut_pic"));
         cut_pic->setGeometry(QRect(358, 125, 131, 18));
+        sizePolicy1.setHeightForWidth(cut_pic->sizePolicy().hasHeightForWidth());
+        cut_pic->setSizePolicy(sizePolicy1);
         cut_pic->setStyleSheet(QString::fromUtf8("font: 9pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         pic_size = new QTextBrowser(Basic);
         pic_size->setObjectName(QStringLiteral("pic_size"));
@@ -246,6 +267,8 @@ public:
         buttonBox_2 = new QDialogButtonBox(Basic);
         buttonBox_2->setObjectName(QStringLiteral("buttonBox_2"));
         buttonBox_2->setGeometry(QRect(185, 45, 141, 32));
+        sizePolicy1.setHeightForWidth(buttonBox_2->sizePolicy().hasHeightForWidth());
+        buttonBox_2->setSizePolicy(sizePolicy1);
         buttonBox_2->setStyleSheet(QLatin1String("min-width: 65;\n"
 "min-height: 20;"));
         buttonBox_2->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
@@ -264,12 +287,14 @@ public:
         contrast_button = new QDialogButtonBox(Basic);
         contrast_button->setObjectName(QStringLiteral("contrast_button"));
         contrast_button->setGeometry(QRect(352, 45, 141, 32));
+        sizePolicy1.setHeightForWidth(contrast_button->sizePolicy().hasHeightForWidth());
+        contrast_button->setSizePolicy(sizePolicy1);
         contrast_button->setStyleSheet(QLatin1String("min-width: 65;\n"
 "min-height: 20;"));
         contrast_button->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         layoutWidget = new QWidget(Basic);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 120, 164, 31));
+        layoutWidget->setGeometry(QRect(10, 120, 161, 31));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -277,18 +302,24 @@ public:
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         RGB_R = new QPushButton(layoutWidget);
         RGB_R->setObjectName(QStringLiteral("RGB_R"));
+        sizePolicy1.setHeightForWidth(RGB_R->sizePolicy().hasHeightForWidth());
+        RGB_R->setSizePolicy(sizePolicy1);
         RGB_R->setMaximumSize(QSize(50, 20));
 
         horizontalLayout->addWidget(RGB_R);
 
         RGB_G = new QPushButton(layoutWidget);
         RGB_G->setObjectName(QStringLiteral("RGB_G"));
+        sizePolicy1.setHeightForWidth(RGB_G->sizePolicy().hasHeightForWidth());
+        RGB_G->setSizePolicy(sizePolicy1);
         RGB_G->setMaximumSize(QSize(50, 20));
 
         horizontalLayout->addWidget(RGB_G);
 
         RGB_B = new QPushButton(layoutWidget);
         RGB_B->setObjectName(QStringLiteral("RGB_B"));
+        sizePolicy1.setHeightForWidth(RGB_B->sizePolicy().hasHeightForWidth());
+        RGB_B->setSizePolicy(sizePolicy1);
         RGB_B->setMaximumSize(QSize(50, 20));
 
         horizontalLayout->addWidget(RGB_B);
@@ -334,6 +365,11 @@ public:
 
         pic_mix = new QPushButton(layoutWidget1);
         pic_mix->setObjectName(QStringLiteral("pic_mix"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(pic_mix->sizePolicy().hasHeightForWidth());
+        pic_mix->setSizePolicy(sizePolicy2);
         pic_mix->setStyleSheet(QString::fromUtf8("min-height: 20px;\n"
 "font: 8pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
 
@@ -366,34 +402,50 @@ public:
         thr_binary = new QPushButton(Advanced);
         thr_binary->setObjectName(QStringLiteral("thr_binary"));
         thr_binary->setGeometry(QRect(240, 38, 75, 23));
+        sizePolicy1.setHeightForWidth(thr_binary->sizePolicy().hasHeightForWidth());
+        thr_binary->setSizePolicy(sizePolicy1);
         thr_binary->setStyleSheet(QString::fromUtf8("font: 8pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         thr_inv_bin = new QPushButton(Advanced);
         thr_inv_bin->setObjectName(QStringLiteral("thr_inv_bin"));
         thr_inv_bin->setGeometry(QRect(240, 68, 121, 23));
+        sizePolicy1.setHeightForWidth(thr_inv_bin->sizePolicy().hasHeightForWidth());
+        thr_inv_bin->setSizePolicy(sizePolicy1);
         thr_inv_bin->setStyleSheet(QString::fromUtf8("font: 8pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         thr_trunc = new QPushButton(Advanced);
         thr_trunc->setObjectName(QStringLiteral("thr_trunc"));
         thr_trunc->setGeometry(QRect(400, 38, 75, 23));
+        sizePolicy1.setHeightForWidth(thr_trunc->sizePolicy().hasHeightForWidth());
+        thr_trunc->setSizePolicy(sizePolicy1);
         thr_trunc->setStyleSheet(QString::fromUtf8("font: 8pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         thr_to_zero = new QPushButton(Advanced);
         thr_to_zero->setObjectName(QStringLiteral("thr_to_zero"));
         thr_to_zero->setGeometry(QRect(320, 38, 75, 23));
+        sizePolicy1.setHeightForWidth(thr_to_zero->sizePolicy().hasHeightForWidth());
+        thr_to_zero->setSizePolicy(sizePolicy1);
         thr_to_zero->setStyleSheet(QString::fromUtf8("font: 8pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         thr_to_zero_inv = new QPushButton(Advanced);
         thr_to_zero_inv->setObjectName(QStringLiteral("thr_to_zero_inv"));
         thr_to_zero_inv->setGeometry(QRect(363, 68, 111, 23));
+        sizePolicy1.setHeightForWidth(thr_to_zero_inv->sizePolicy().hasHeightForWidth());
+        thr_to_zero_inv->setSizePolicy(sizePolicy1);
         thr_to_zero_inv->setStyleSheet(QString::fromUtf8("font: 8pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         cam_camshift = new QPushButton(Advanced);
         cam_camshift->setObjectName(QStringLiteral("cam_camshift"));
         cam_camshift->setGeometry(QRect(240, 120, 75, 23));
+        sizePolicy1.setHeightForWidth(cam_camshift->sizePolicy().hasHeightForWidth());
+        cam_camshift->setSizePolicy(sizePolicy1);
         cam_camshift->setStyleSheet(QString::fromUtf8("font: 8pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         cam_optiflow = new QPushButton(Advanced);
         cam_optiflow->setObjectName(QStringLiteral("cam_optiflow"));
         cam_optiflow->setGeometry(QRect(320, 120, 75, 23));
+        sizePolicy1.setHeightForWidth(cam_optiflow->sizePolicy().hasHeightForWidth());
+        cam_optiflow->setSizePolicy(sizePolicy1);
         cam_optiflow->setStyleSheet(QString::fromUtf8("font: 8pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         cam_facedetect = new QPushButton(Advanced);
         cam_facedetect->setObjectName(QStringLiteral("cam_facedetect"));
         cam_facedetect->setGeometry(QRect(400, 120, 75, 23));
+        sizePolicy1.setHeightForWidth(cam_facedetect->sizePolicy().hasHeightForWidth());
+        cam_facedetect->setSizePolicy(sizePolicy1);
         cam_facedetect->setStyleSheet(QString::fromUtf8("font: 8pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";"));
         horizontalLayoutWidget_2 = new QWidget(Advanced);
         horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
@@ -430,6 +482,8 @@ public:
         line = new QFrame(centralWidget);
         line->setObjectName(QStringLiteral("line"));
         line->setGeometry(QRect(-20, 160, 811, 20));
+        sizePolicy1.setHeightForWidth(line->sizePolicy().hasHeightForWidth());
+        line->setSizePolicy(sizePolicy1);
         line->setFrameShape(QFrame::HLine);
         line->setFrameShadow(QFrame::Sunken);
         layoutWidget2 = new QWidget(centralWidget);
@@ -506,8 +560,8 @@ public:
         thr_to_zero->setText(QApplication::translate("MainWindow", "\351\230\210\345\200\274\345\214\226\344\270\2720", Q_NULLPTR));
         thr_to_zero_inv->setText(QApplication::translate("MainWindow", "\345\217\215\351\230\210\345\200\274\345\214\226\344\270\2720", Q_NULLPTR));
         cam_camshift->setText(QApplication::translate("MainWindow", "\347\211\251\344\275\223\350\277\275\350\270\252", Q_NULLPTR));
-        cam_optiflow->setText(QApplication::translate("MainWindow", "\344\272\272\350\204\270\346\243\200\346\265\213", Q_NULLPTR));
-        cam_facedetect->setText(QApplication::translate("MainWindow", "\345\205\211\346\265\201\347\256\227\346\263\225", Q_NULLPTR));
+        cam_optiflow->setText(QApplication::translate("MainWindow", "\345\205\211\346\265\201\347\256\227\346\263\225", Q_NULLPTR));
+        cam_facedetect->setText(QApplication::translate("MainWindow", "\344\272\272\350\204\270\346\243\200\346\265\213", Q_NULLPTR));
         label_6->setText(QApplication::translate("MainWindow", "\345\233\276\347\211\207\351\230\210\345\200\274\345\214\226", Q_NULLPTR));
         label_7->setText(QApplication::translate("MainWindow", "\346\221\204\345\203\217\345\244\264\345\212\237\350\203\275", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(Advanced), QApplication::translate("MainWindow", "\351\253\230\347\272\247\345\212\237\350\203\275", Q_NULLPTR));

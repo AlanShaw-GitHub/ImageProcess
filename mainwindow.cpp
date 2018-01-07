@@ -290,7 +290,7 @@ void MainWindow::on_rotate_picture_clicked()
         }
         return;
     }
-    IPP_rotate(version, 90);
+    IPP_rotate(version);
     version += 1;
     MainWindow::load_picture(version);
 

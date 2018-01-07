@@ -10,10 +10,22 @@
     <height>764</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>776</width>
+    <height>764</height>
+   </size>
+  </property>
   <property name="maximumSize">
    <size>
     <width>776</width>
-    <height>16777215</height>
+    <height>9999</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -130,6 +142,12 @@ font: 57 15pt &quot;Consolas&quot;;
         <height>31</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <family>微软雅黑</family>
@@ -160,6 +178,12 @@ font: 57 15pt &quot;Consolas&quot;;
         <width>131</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 9pt &quot;微软雅黑&quot;;</string>
@@ -271,6 +295,12 @@ font: 57 15pt &quot;Consolas&quot;;
         <height>18</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 9pt &quot;微软雅黑&quot;;</string>
       </property>
@@ -303,6 +333,12 @@ font: 57 15pt &quot;Consolas&quot;;
         <height>18</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 9pt &quot;微软雅黑&quot;;</string>
       </property>
@@ -319,6 +355,12 @@ font: 57 15pt &quot;Consolas&quot;;
         <height>18</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 9pt &quot;微软雅黑&quot;;</string>
       </property>
@@ -334,6 +376,12 @@ font: 57 15pt &quot;Consolas&quot;;
         <width>131</width>
         <height>18</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 9pt &quot;微软雅黑&quot;;</string>
@@ -417,6 +465,12 @@ p, li { white-space: pre-wrap; }
         <height>32</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">min-width: 65;
 min-height: 20;</string>
@@ -462,6 +516,12 @@ min-height: 20;</string>
         <height>32</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">min-width: 65;
 min-height: 20;</string>
@@ -475,7 +535,7 @@ min-height: 20;</string>
        <rect>
         <x>10</x>
         <y>120</y>
-        <width>164</width>
+        <width>161</width>
         <height>31</height>
        </rect>
       </property>
@@ -485,6 +545,12 @@ min-height: 20;</string>
        </property>
        <item>
         <widget class="QPushButton" name="RGB_R">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>50</width>
@@ -498,6 +564,12 @@ min-height: 20;</string>
        </item>
        <item>
         <widget class="QPushButton" name="RGB_G">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>50</width>
@@ -511,6 +583,12 @@ min-height: 20;</string>
        </item>
        <item>
         <widget class="QPushButton" name="RGB_B">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>50</width>
@@ -632,6 +710,12 @@ font: 8pt &quot;微软雅黑&quot;;</string>
        </item>
        <item>
         <widget class="QPushButton" name="pic_mix">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="styleSheet">
           <string notr="true">min-height: 20px;
 font: 8pt &quot;微软雅黑&quot;;</string>
@@ -688,6 +772,12 @@ font: 9pt &quot;微软雅黑&quot;;</string>
         <height>23</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
       </property>
@@ -703,6 +793,12 @@ font: 9pt &quot;微软雅黑&quot;;</string>
         <width>121</width>
         <height>23</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
@@ -720,6 +816,12 @@ font: 9pt &quot;微软雅黑&quot;;</string>
         <height>23</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
       </property>
@@ -735,6 +837,12 @@ font: 9pt &quot;微软雅黑&quot;;</string>
         <width>75</width>
         <height>23</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
@@ -752,6 +860,12 @@ font: 9pt &quot;微软雅黑&quot;;</string>
         <height>23</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
       </property>
@@ -767,6 +881,12 @@ font: 9pt &quot;微软雅黑&quot;;</string>
         <width>75</width>
         <height>23</height>
        </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
@@ -784,11 +904,17 @@ font: 9pt &quot;微软雅黑&quot;;</string>
         <height>23</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
       </property>
       <property name="text">
-       <string>人脸检测</string>
+       <string>光流算法</string>
       </property>
      </widget>
      <widget class="QPushButton" name="cam_facedetect">
@@ -800,11 +926,17 @@ font: 9pt &quot;微软雅黑&quot;;</string>
         <height>23</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="styleSheet">
        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
       </property>
       <property name="text">
-       <string>光流算法</string>
+       <string>人脸检测</string>
       </property>
      </widget>
      <widget class="QWidget" name="horizontalLayoutWidget_2">
@@ -880,6 +1012,12 @@ font: 9pt &quot;微软雅黑&quot;;</string>
       <width>811</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
